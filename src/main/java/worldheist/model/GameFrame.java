@@ -45,6 +45,8 @@ public class GameFrame extends JFrame {
                     case KeyEvent.VK_DOWN:
                         avatar.setLocation(avatar.getX(), avatar.getY() + 5); // Move down
                         break;
+                    default:
+                        break;
                 }
                 person.setLocation(avatar.getX(), avatar.getY());
                 component.repaint();
@@ -54,6 +56,7 @@ public class GameFrame extends JFrame {
         setFocusable(true); // Ensure the frame can receive key events
         component.repaint();
     }
+
     private List<Wall> createWalls(int numWalls, int wallWidth, int wallHeight) {
         List<Wall> walls = new ArrayList<>();
         Random rand = new Random();
