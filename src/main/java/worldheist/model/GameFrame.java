@@ -3,6 +3,9 @@ package worldheist.model;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class GameFrame extends JFrame {
 
@@ -13,8 +16,7 @@ public class GameFrame extends JFrame {
         setLayout(null);
 
         Avatar avatar = new Avatar(500, 750);
-        Walls wall = new Walls(30, 18);
-        wall.populateWalls();
+        List<Wall> wall = createWalls(10, getWidth(), 30);
 
         GameComponent component = new GameComponent(avatar, wall);
         component.setBounds(0, 0, 800, 600);
@@ -51,5 +53,30 @@ public class GameFrame extends JFrame {
 
         setFocusable(true); // Ensure the frame can receive key events
         component.repaint();
+    }
+    private List<Wall> createWalls(int numWalls, int wallWidth, int wallHeight) {
+        List<Wall> walls = new ArrayList<>();
+        Random rand = new Random();
+
+        int maxX = getWidth();
+        int maxY = getHeight();
+
+        while (walls.size() < numWalls) {
+            int x = 0;
+            int y = rand.nextInt(maxY);
+
+            boolean overlap = false;
+            for (Wall w : walls) {
+                if (w.intersects(new Rectangle(x, y, wallWidth, wallHeight))) {
+                    overlap = true;
+                    break;
+                }
+            }
+
+            if (!overlap) {
+                walls.add(new Wall(x, y, wallWidth, wallHeight));
+            }
+        }
+        return walls;
     }
 }

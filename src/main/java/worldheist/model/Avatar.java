@@ -3,8 +3,8 @@ package worldheist.model;
 public class Avatar {
     private int x;
     private int y;
-    private final int width = 100;
-    private final int height = 20;
+    private final int width = 55;
+    private final int height = 60;
 
     public Avatar(int startX, int startY) {
         this.x = startX;

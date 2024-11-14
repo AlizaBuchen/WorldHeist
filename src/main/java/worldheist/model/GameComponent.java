@@ -1,35 +1,29 @@
 package worldheist.model;
 
-import worldheist.model.Avatar;
-
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class GameComponent extends JComponent {
     private final Avatar avatar;
 
-    private final Walls wall;
+    private final List<Wall> walls;
 
-    public GameComponent(Avatar avatar, Walls wall) {
+    public GameComponent(Avatar avatar, List<Wall> walls) {
         this.avatar = avatar;
-        this.wall = wall;
+        this.walls = walls;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        for (Wall wall : walls) {
+            if (!wall.isHit()) {
+                g.setColor(Color.RED);
+                g.fillRect(wall.x, wall.y, wall.width, wall.height);
 
-        for (int i = 0; i < wall.getCols(); i++) {
-            for (int j = 0; j < wall.getRows(); j++) {
-                if (wall.isBrick(i, j)) {
-                    g.setColor(Color.RED);
-                    int xPos = i * 30;
-                    int yPos = j * 18;
-                    g.fillRect(xPos, yPos, 30, 18);
-
-                    g.setColor(Color.BLACK);
-                    g.drawRect(xPos, yPos, 30, 18);
-                }
+                g.setColor(Color.BLACK);
+                g.drawRect(wall.x, wall.y, wall.width, wall.height);
             }
         }
 
