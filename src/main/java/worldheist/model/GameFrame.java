@@ -16,9 +16,9 @@ public class GameFrame extends JFrame {
         setLayout(null);
 
         Avatar avatar = new Avatar(500, 750);
-        List<Wall> wall = createWalls(10, getWidth(), 30);
+        List<Wall> walls = createWalls(10, getWidth(), 30);
 
-        GameComponent component = new GameComponent(avatar, wall);
+        GameComponent component = new GameComponent(avatar, walls);
         component.setBounds(0, 0, 800, 600);
         add(component);
 
@@ -28,32 +28,45 @@ public class GameFrame extends JFrame {
         person.setBounds(avatar.getX(), avatar.getY(), avatar.getWidth(), avatar.getHeight());
         add(person);
 
+        Controller controller = new Controller(avatar, walls, component);
+        final boolean[] start = {false};
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                controller.play();
+                start[0] = true;
+            }
+        });
+
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                switch (keyCode) {
-                    case KeyEvent.VK_LEFT:
-                        avatar.setLocation(avatar.getX() - 5, avatar.getY()); // Move left
-                        break;
-                    case KeyEvent.VK_RIGHT:
-                        avatar.setLocation(avatar.getX() + 5, avatar.getY()); // Move right
-                        break;
-                    case KeyEvent.VK_UP:
-                        avatar.setLocation(avatar.getX(), avatar.getY() - 5); // Move up
-                        break;
-                    case KeyEvent.VK_DOWN:
-                        avatar.setLocation(avatar.getX(), avatar.getY() + 5); // Move down
-                        break;
-                    default:
-                        break;
+                if (start[0]) {
+                    switch (keyCode) {
+                        case KeyEvent.VK_LEFT:
+                            avatar.setLocation(avatar.getX() - 5, avatar.getY()); // Move left
+                            break;
+                        case KeyEvent.VK_RIGHT:
+                            avatar.setLocation(avatar.getX() + 5, avatar.getY()); // Move right
+                            break;
+                        case KeyEvent.VK_UP:
+                            avatar.setLocation(avatar.getX(), avatar.getY() - 5); // Move up
+                            break;
+                        case KeyEvent.VK_DOWN:
+                            avatar.setLocation(avatar.getX(), avatar.getY() + 5); // Move down
+                            break;
+                        default:
+                            break;
+                    }
+                    person.setLocation(avatar.getX(), avatar.getY());
+                    component.repaint();
                 }
-                person.setLocation(avatar.getX(), avatar.getY());
-                component.repaint();
             }
         });
 
-        setFocusable(true); // Ensure the frame can receive key events
+        setFocusable(true);
         component.repaint();
     }
 
@@ -63,10 +76,10 @@ public class GameFrame extends JFrame {
 
         int maxX = getWidth();
         int maxY = getHeight();
-
+        int y = 20;
         while (walls.size() < numWalls) {
             int x = 0;
-            int y = rand.nextInt(maxY);
+            y += 50;
 
             boolean overlap = false;
             for (Wall w : walls) {
