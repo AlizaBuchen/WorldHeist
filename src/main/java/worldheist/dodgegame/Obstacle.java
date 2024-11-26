@@ -2,8 +2,6 @@ package worldheist.dodgegame;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
-
-import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
 public class Obstacle extends Ellipse2D.Double {
@@ -11,7 +9,8 @@ public class Obstacle extends Ellipse2D.Double {
     private static final int MAX_VELOCITY = 45;
     private final int velocity;
     private int angle;
-    private Color color;
+    private final Color color;
+
     public Obstacle(int angle, int width, int height, double x, double y) {
         super(x, y, width, height);
         this.angle = angle;

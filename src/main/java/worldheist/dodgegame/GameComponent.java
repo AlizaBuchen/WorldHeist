@@ -3,7 +3,6 @@ package worldheist.dodgegame;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import java.util.Random;
 
 public class GameComponent extends JComponent {
     private final Avatar avatar;
@@ -18,13 +17,10 @@ public class GameComponent extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-       // setBackground(Color.BLACK);
-        //g.setColor(getBackground());
-        //setOpaque(true);
 
         for (Obstacle obstacle : obstacles) {
             g.setColor(obstacle.getColor());
-            g.fillOval((int) obstacle.getX() - 10, (int) obstacle.getY() - 10, 30, 30);  // Draw the obstacle as a filled oval
+            g.fillOval((int) obstacle.getX() - 10, (int) obstacle.getY() - 10, 30, 30);
         }
 
 
