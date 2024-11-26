@@ -32,14 +32,15 @@ public class Controller {
         }
 
         timer = new Timer(1000 / 60, e -> {
-            elapsedTime += 1000 / 60;
+            elapsedTime++;
 
-            if (elapsedTime >= 60000) {
+            if (frame.getCountDown() <= 0) {
                 timer.stop();
-                if (!gameOver)
-                {
+                if (!gameOver) {
+                    frame.gameOver();
                     JOptionPane.showMessageDialog(frame, "You Win!");
                     gameOver = true;
+                    frame.dispose();
                 }
             }
 
@@ -61,14 +62,11 @@ public class Controller {
                 avatar.getWidth(), avatar.getHeight());
         Rectangle obstacleBounds = new Rectangle((int) obstacle.getX(), (int) obstacle.getY(),
                 30, 30);
-        if (avatarBounds.intersects(obstacleBounds))
-        {
+        if (avatarBounds.intersects(obstacleBounds)) {
             if (!gameOver) {
+                frame.gameOver();
                 JOptionPane.showMessageDialog(frame, "Game Over! You lose a life :(");
-
-                if (frame != null) {
-                    frame.dispose();
-                }
+                frame.dispose();
                 gameOver = true;
             }
         }

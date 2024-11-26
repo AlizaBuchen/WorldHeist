@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameFrame extends JFrame {
+    private int[] countDown;
+    private boolean gameOver;
 
     public GameFrame() {
         setSize(1000, 800);
@@ -17,8 +19,10 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
 
+        getContentPane().setBackground(Color.BLACK);
+
         Avatar avatar = new Avatar(500, 750);
-        List<Obstacle> obstacles = createObstacles(15, 30, 30);
+        List<Obstacle> obstacles = createObstacles(20, 30, 30);
 
         GameComponent component = new GameComponent(avatar, obstacles);
         component.setBounds(0, 0, 1000, 800);
@@ -30,6 +34,27 @@ public class GameFrame extends JFrame {
         person.setBounds(avatar.getX(), avatar.getY(), avatar.getWidth(), avatar.getHeight());
         add(person);
 
+        JLabel clock = new JLabel();
+        clock.setOpaque(true);
+        clock.setBackground(Color.BLACK);
+        clock.setForeground(Color.WHITE);
+        clock.setFont(new Font("Arial", Font.BOLD, 16));
+        clock.setText("Time: 60");
+        clock.setBounds(getWidth() - 110, 10, 100, 30);
+        add(clock);
+
+        countDown = new int[]{59};
+
+        Timer timer = new Timer(1000, e -> {
+           clock.setText("Time: " + countDown[0]);
+
+            if (countDown[0] <= 0 || gameOver) {
+                ((Timer) e.getSource()).stop();
+            }
+
+            countDown[0]--;
+        });
+
         Controller controller = new Controller(avatar, obstacles, component, this);
         final boolean[] start = {false};
 
@@ -38,6 +63,7 @@ public class GameFrame extends JFrame {
             public void mousePressed(MouseEvent e) {
                 controller.play();
                 start[0] = true;
+                timer.start();
             }
         });
 
@@ -48,16 +74,16 @@ public class GameFrame extends JFrame {
                 if (start[0]) {
                     switch (keyCode) {
                         case KeyEvent.VK_LEFT:
-                            avatar.setLocation(avatar.getX() - 5, avatar.getY()); // Move left
+                            avatar.setLocation(avatar.getX() - 5, avatar.getY());
                             break;
                         case KeyEvent.VK_RIGHT:
-                            avatar.setLocation(avatar.getX() + 5, avatar.getY()); // Move right
+                            avatar.setLocation(avatar.getX() + 5, avatar.getY());
                             break;
                         case KeyEvent.VK_UP:
-                            avatar.setLocation(avatar.getX(), avatar.getY() - 5); // Move up
+                            avatar.setLocation(avatar.getX(), avatar.getY() - 5);
                             break;
                         case KeyEvent.VK_DOWN:
-                            avatar.setLocation(avatar.getX(), avatar.getY() + 5); // Move down
+                            avatar.setLocation(avatar.getX(), avatar.getY() + 5);
                             break;
                         default:
                             break;
@@ -69,7 +95,8 @@ public class GameFrame extends JFrame {
         });
 
         setFocusable(true);
-        component.repaint();
+        revalidate();
+        repaint();
     }
 
     private List<Obstacle> createObstacles(int numObstacles, int obstacleWidth, int obstacleHeight) {
@@ -80,10 +107,17 @@ public class GameFrame extends JFrame {
             for (Obstacle o : obstacles) {
                 x = (int) o.updateX();
                 y = (int) o.updateY();
-
             }
             obstacles.add(new Obstacle(90, obstacleWidth, obstacleHeight, x, y));
         }
         return obstacles;
+    }
+
+    public int getCountDown() {
+        return countDown[0];
+    }
+
+    public void gameOver() {
+        gameOver = true;
     }
 }

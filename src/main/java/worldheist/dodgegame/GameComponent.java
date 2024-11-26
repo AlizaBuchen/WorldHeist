@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.List;
 import java.util.Random;
 
-public class GameComponent extends JPanel {
+public class GameComponent extends JComponent {
     private final Avatar avatar;
 
     private final List<Obstacle> obstacles;
@@ -18,7 +18,7 @@ public class GameComponent extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        setBackground(Color.BLACK);
+       // setBackground(Color.BLACK);
         //g.setColor(getBackground());
         //setOpaque(true);
 

@@ -29,8 +29,7 @@ public class Controller {
         for (Wall wall : walls) {
             if (!wall.isHit() && wall.getBounds().intersects(avatarBounds)) {
                 wall.setHit(true);
-                ObstacleFrame of = new ObstacleFrame();
-                of.setVisible(true);
+                new ObstacleFrame().setVisible(true);
                 view.repaint();
                 break;
             }
