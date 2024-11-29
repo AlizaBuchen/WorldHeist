@@ -29,7 +29,7 @@ public class ModelController {
         for (Wall wall : walls) {
             if (!wall.isHit() && wall.getBounds().intersects(avatar.getBounds())) {
                 wall.setHit(true);
-                //new ObstacleFrame().setVisible(true);
+                new ObstacleFrame().setVisible(true);
                 view.repaint();
                 break;
             }

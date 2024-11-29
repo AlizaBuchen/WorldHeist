@@ -32,7 +32,7 @@ public class GameFrame extends JFrame {
 
         getContentPane().setBackground(Color.BLACK);
 
-        avatar = new Avatar(750, 750, 55, 60);
+        avatar = new Avatar(getWidth() / 2, getHeight() - 60, 55, 60);
         lives = 3;
 
         obstacles = createObstacles(10, 30, 30);
@@ -122,17 +122,37 @@ public class GameFrame extends JFrame {
                 if (start[0]) {
                     switch (keyCode) {
                         case KeyEvent.VK_LEFT:
-                            avatar.setLocation((int) (avatar.getX() - 10), (int) avatar.getY());
-                            break;
+                            if (avatar.getX() >= 0) {
+                                avatar.setLocation((int) (avatar.getX() - 10), (int) avatar.getY());
+                                break;
+                            } else {
+                                avatar.setLocation((int) (getWidth() - avatar.getWidth()), (int) avatar.getY());
+                                break;
+                            }
                         case KeyEvent.VK_RIGHT:
-                            avatar.setLocation((int) (avatar.getX() + 10), (int) avatar.getY());
-                            break;
+                            if (avatar.getX() + 10 <= getWidth()) {
+                                avatar.setLocation((int) (avatar.getX() + 10), (int) avatar.getY());
+                                break;
+                            } else {
+                                avatar.setLocation(0, (int) avatar.getY());
+                                break;
+                            }
                         case KeyEvent.VK_UP:
-                            avatar.setLocation((int) avatar.getX(), (int) (avatar.getY() - 10));
-                            break;
+                            if (avatar.getY() >= 0) {
+                                avatar.setLocation((int) avatar.getX(), (int) (avatar.getY() - 10));
+                                break;
+                            } else {
+                                avatar.setLocation((int) avatar.getX(), (int) (getHeight() - avatar.getHeight()));
+                                break;
+                            }
                         case KeyEvent.VK_DOWN:
-                            avatar.setLocation((int) avatar.getX(), (int) (avatar.getY() + 10));
-                            break;
+                            if (avatar.getY() <= getHeight()) {
+                                avatar.setLocation((int) avatar.getX(), (int) (avatar.getY() + 10));
+                                break;
+                            } else {
+                                avatar.setLocation((int) avatar.getX(), 0);
+                                break;
+                            }
                         default:
                             break;
                     }

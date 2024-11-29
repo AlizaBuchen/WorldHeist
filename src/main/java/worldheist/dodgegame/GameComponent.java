@@ -20,13 +20,12 @@ public class GameComponent extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        for (Obstacle obstacle : obstacles) {
-            g.setColor(obstacle.getColor());
-            g.fillOval((int) obstacle.getX() - 10, (int) obstacle.getY() - 10, 30, 30);
-        }
-
-
         g.setColor(Color.BLUE);
         g.fillRect((int) avatar.getX(), (int) avatar.getY(), (int) avatar.getWidth(), (int) avatar.getHeight());
+
+        for (Obstacle obstacle : obstacles) {
+            g.setColor(obstacle.getColor());
+            g.fillOval((int) obstacle.getX() - 15, (int) obstacle.getY() - 15, 30, 30);
+        }
     }
 }

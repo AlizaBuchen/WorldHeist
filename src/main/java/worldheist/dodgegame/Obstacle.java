@@ -59,7 +59,7 @@ public class Obstacle extends Ellipse2D.Double {
     }
 
     public boolean hitsAvatar(Avatar avatar) {
-        return avatar.getBounds().intersects(this.getBounds());
+        return this.getBounds().intersects(avatar.getBounds());
     }
 
     public Color getColor() {
