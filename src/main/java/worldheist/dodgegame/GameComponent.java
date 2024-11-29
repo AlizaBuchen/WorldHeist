@@ -25,7 +25,7 @@ public class GameComponent extends JComponent {
 
         for (Obstacle obstacle : obstacles) {
             g.setColor(obstacle.getColor());
-            g.fillOval((int) obstacle.getX() - 15, (int) obstacle.getY() - 15, 30, 30);
+            g.fillOval((int) obstacle.getX(), (int) obstacle.getY(), 30, 30);
         }
     }
 }
