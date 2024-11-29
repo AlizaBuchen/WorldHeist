@@ -1,4 +1,4 @@
-package worldheist.model;
+package worldheist.maze;
 
 import worldheist.general.*;
 
@@ -19,13 +19,13 @@ public class GameComponent extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         for (Wall wall : walls) {
-            if (!wall.isHit()) {
-                g.setColor(Color.RED);
+            //if (!wall.isHit()) {
+                g.setColor(new Color(83, 77, 84));
                 g.fillRect(wall.x, wall.y, wall.width, wall.height);
 
                 g.setColor(Color.BLACK);
                 g.drawRect(wall.x, wall.y, wall.width, wall.height);
-            }
+            //}
         }
 
         g.setColor(Color.BLUE);

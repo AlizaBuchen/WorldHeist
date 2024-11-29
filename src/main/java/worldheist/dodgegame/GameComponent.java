@@ -1,5 +1,7 @@
 package worldheist.dodgegame;
 
+import worldheist.general.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -25,6 +27,6 @@ public class GameComponent extends JComponent {
 
 
         g.setColor(Color.BLUE);
-        g.fillRect(avatar.getX(), avatar.getY(), avatar.getWidth(), avatar.getHeight());
+        g.fillRect((int) avatar.getX(), (int) avatar.getY(), (int) avatar.getWidth(), (int) avatar.getHeight());
     }
 }

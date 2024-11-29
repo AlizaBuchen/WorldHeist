@@ -1,4 +1,4 @@
-package worldheist.model;
+package worldheist.maze;
 
 import worldheist.general.*;
 
@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 public class GameFrame extends JFrame {
+    Random rand = new Random();
 
     public GameFrame() {
         setSize(1500, 800);
@@ -18,7 +19,7 @@ public class GameFrame extends JFrame {
         setLayout(null);
 
         Avatar avatar = new Avatar(750, 750, 55, 60);
-        List<Wall> walls = createWalls(12, getWidth(), 30);
+        List<Wall> walls = createMaze();
 
         GameComponent component = new GameComponent(avatar, walls);
         component.setBounds(0, 0, 1500, 800);
@@ -30,7 +31,7 @@ public class GameFrame extends JFrame {
         person.setBounds((int) avatar.getX(), (int) avatar.getY(), (int) avatar.getWidth(), (int) avatar.getHeight());
         add(person);
 
-        ModelController controller = new ModelController(avatar, walls, component);
+        MazeController controller = new MazeController(avatar, walls, component);
         final boolean[] start = {false};
 
         addMouseListener(new MouseAdapter() {
@@ -72,23 +73,28 @@ public class GameFrame extends JFrame {
         component.repaint();
     }
 
-    private List<Wall> createWalls(int numWalls, int wallWidth, int wallHeight) {
+    private List<Wall> createMaze() {
         List<Wall> walls = new ArrayList<>();
+        int x;
         int y = 0;
-        while (walls.size() < numWalls) {
-            int x = 0;
+
+        while (walls.size() < 50) {
+            int width = rand.nextInt(500) + 200;
+            int lOrR = rand.nextInt(2);
+//            x = lOrR == 0 ? 0 : getWidth() - width;
+            x = rand.nextInt(getWidth());
             y += 50;
 
             boolean overlap = false;
             for (Wall w : walls) {
-                if (w.intersects(new Rectangle(x, y, wallWidth, wallHeight))) {
+                if (w.intersects(new Rectangle(x, y, width, 50))) {
                     overlap = true;
                     break;
                 }
             }
 
             if (!overlap) {
-                walls.add(new Wall(x, y, wallWidth, wallHeight));
+                walls.add(new Wall(x, y, width, 50));
             }
         }
         return walls;
