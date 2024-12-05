@@ -40,7 +40,6 @@ public class GameFrame extends JFrame {
         clock.setBounds(getWidth() - 110, 5, 100, 25);
         add(clock);
 
-        MazeController controller = new MazeController(avatar, walls, this);
         start = new boolean[]{false};
         countDown = new int[]{59};
 
@@ -55,6 +54,7 @@ public class GameFrame extends JFrame {
             }
         });
 
+        MazeController controller = new MazeController(avatar, walls, this);
         controller.play();
         start[0] = true;
         timer.start();

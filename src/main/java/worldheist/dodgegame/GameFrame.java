@@ -109,7 +109,9 @@ public class GameFrame extends JFrame {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (!start[0]) return;
+                if (!start[0]) {
+                    return;
+                }
 
                 int keyCode = e.getKeyCode();
                 int step = 10;
@@ -128,6 +130,8 @@ public class GameFrame extends JFrame {
                         break;
                     case KeyEvent.VK_DOWN:
                         newY = (newY + step <= getHeight()) ? newY + step : 0;
+                        break;
+                    default:
                         break;
                 }
 

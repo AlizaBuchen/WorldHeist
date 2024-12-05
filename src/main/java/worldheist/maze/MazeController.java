@@ -1,8 +1,7 @@
 package worldheist.maze;
-import worldheist.general.*;
 
+import worldheist.general.*;
 import javax.swing.*;
-import java.awt.*;
 import java.util.List;
 
 public class MazeController {
@@ -18,34 +17,6 @@ public class MazeController {
         this.frame = frame;
         this.gameOver = false;
     }
-
-    /*
-    public void play() {
-        timer = new Timer(1000 / 60, e -> {
-            for (Obstacle obstacle : obstacles) {
-                double newX = obstacle.updateX();
-                double newY = obstacle.updateY();
-                obstacle.setPosition(newX, newY);
-                obstacle.checkBounds(frame.getWidth(), frame.getHeight());
-                view.repaint();
-
-                if (obstacle.hitsAvatar(avatar)) {
-                    avatarHits++;
-                    if (avatarHits >= 3) {
-                        frame.gameOver();
-                        JOptionPane.showMessageDialog(frame, "Game Over! You lose a life :(");
-                        frame.dispose();
-                        gameOver = true;
-                    } else {
-                        frame.nextAvatar(avatarHits);
-                    }
-                    timer.stop();
-                }
-            }
-        });
-        timer.start();
-    }
-     */
 
     public void play() {
         timer = new Timer(1000 / 60, e -> {

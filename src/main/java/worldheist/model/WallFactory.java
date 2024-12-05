@@ -12,7 +12,7 @@ public class WallFactory
     private final int wallWidth;
     private final int wallHeight;
 
-    public WallFactory (int numWalls, int wallWidth, int wallHeight) {
+    public WallFactory(int numWalls, int wallWidth, int wallHeight) {
         this.numWalls = numWalls;
         this.wallWidth = wallWidth;
         this.wallHeight = wallHeight;
