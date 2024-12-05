@@ -8,9 +8,7 @@ import java.awt.event.ActionListener;
 
 public class ObstacleFrame extends JFrame {
 
-    public ObstacleFrame() {
-        worldheist.dodgegame.GameFrame frame = new worldheist.dodgegame.GameFrame();
-        //worldheist.maze.GameFrame frame = new worldheist.maze.GameFrame();
+    public ObstacleFrame(JFrame frame) {
         frame.setVisible(true);
     }
 }

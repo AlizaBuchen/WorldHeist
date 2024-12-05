@@ -18,7 +18,8 @@ public class GameFrame extends JFrame {
         setLayout(null);
 
         Avatar avatar = new Avatar(750, 750, 55, 60);
-        List<Wall> walls = createWalls(12, getWidth(), 30);
+        WallFactory wallFactory = new WallFactory(12, getWidth(), 30);
+        List<Wall> walls = wallFactory.createWalls();
 
         GameComponent component = new GameComponent(avatar, walls);
         component.setBounds(0, 0, 1500, 800);
@@ -70,27 +71,5 @@ public class GameFrame extends JFrame {
 
         setFocusable(true);
         component.repaint();
-    }
-
-    private List<Wall> createWalls(int numWalls, int wallWidth, int wallHeight) {
-        List<Wall> walls = new ArrayList<>();
-        int y = 0;
-        while (walls.size() < numWalls) {
-            int x = 0;
-            y += 50;
-
-            boolean overlap = false;
-            for (Wall w : walls) {
-                if (w.intersects(new Rectangle(x, y, wallWidth, wallHeight))) {
-                    overlap = true;
-                    break;
-                }
-            }
-
-            if (!overlap) {
-                walls.add(new Wall(x, y, wallWidth, wallHeight));
-            }
-        }
-        return walls;
     }
 }

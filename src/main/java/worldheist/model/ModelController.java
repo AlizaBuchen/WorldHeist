@@ -21,6 +21,10 @@ public class ModelController {
     public void play() {
         timer = new Timer(1000 / 60, e -> {
             hitWall();
+            if (avatar.getY() + avatar.getHeight() <= 0) {
+                timer.stop();
+                new ObstacleFrame(new worldheist.maze.GameFrame()).setVisible(true);
+            }
         });
         timer.start();
     }
@@ -29,14 +33,13 @@ public class ModelController {
         for (Wall wall : walls) {
             if (!wall.isHit() && wall.getBounds().intersects(avatar.getBounds())) {
                 wall.setHit(true);
-                new ObstacleFrame().setVisible(true);
+                new ObstacleFrame(new worldheist.dodgegame.GameFrame()).setVisible(true);
                 view.repaint();
                 break;
             }
         }
         if (avatar.getY() + avatar.getHeight() <= 0) {
             timer.stop();
-            new ObstacleFrame().setVisible(true);
         }
     }
 }

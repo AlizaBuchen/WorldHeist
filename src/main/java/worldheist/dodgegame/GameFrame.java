@@ -101,15 +101,6 @@ public class GameFrame extends JFrame {
         repaint();
     }
 
-    private List<Obstacle> createObstacles(int numObstacles, int obstacleWidth, int obstacleHeight) {
-        List<Obstacle> obstacles = new ArrayList<>();
-        while (obstacles.size() < numObstacles) {
-            obstacles.add(new Obstacle(rand.nextInt(300) + 45, obstacleWidth, obstacleHeight,
-                    rand.nextInt(1500), rand.nextInt(400)));
-        }
-        return obstacles;
-    }
-
     private void moveAvatar(Avatar avatar, boolean[] start) {
         for (KeyListener keyListener : getKeyListeners()) {
             removeKeyListener(keyListener);
@@ -118,49 +109,34 @@ public class GameFrame extends JFrame {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
+                if (!start[0]) return;
+
                 int keyCode = e.getKeyCode();
-                if (start[0]) {
-                    switch (keyCode) {
-                        case KeyEvent.VK_LEFT:
-                            if (avatar.getX() >= 0) {
-                                avatar.setLocation((int) (avatar.getX() - 10), (int) avatar.getY());
-                                break;
-                            } else {
-                                avatar.setLocation((int) (getWidth() - avatar.getWidth()), (int) avatar.getY());
-                                break;
-                            }
-                        case KeyEvent.VK_RIGHT:
-                            if (avatar.getX() + 10 <= getWidth()) {
-                                avatar.setLocation((int) (avatar.getX() + 10), (int) avatar.getY());
-                                break;
-                            } else {
-                                avatar.setLocation(0, (int) avatar.getY());
-                                break;
-                            }
-                        case KeyEvent.VK_UP:
-                            if (avatar.getY() >= 0) {
-                                avatar.setLocation((int) avatar.getX(), (int) (avatar.getY() - 10));
-                                break;
-                            } else {
-                                avatar.setLocation((int) avatar.getX(), (int) (getHeight() - avatar.getHeight()));
-                                break;
-                            }
-                        case KeyEvent.VK_DOWN:
-                            if (avatar.getY() <= getHeight()) {
-                                avatar.setLocation((int) avatar.getX(), (int) (avatar.getY() + 10));
-                                break;
-                            } else {
-                                avatar.setLocation((int) avatar.getX(), 0);
-                                break;
-                            }
-                        default:
-                            break;
-                    }
-                    person.setLocation((int) avatar.getX(), (int) avatar.getY());
-                    component.repaint();
+                int step = 10;
+                int newX = (int) avatar.getX();
+                int newY = (int) avatar.getY();
+
+                switch (keyCode) {
+                    case KeyEvent.VK_LEFT:
+                        newX = (newX >= 0) ? newX - step : (int) (getWidth() - avatar.getWidth());
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        newX = (newX + step <= getWidth()) ? newX + step : 0;
+                        break;
+                    case KeyEvent.VK_UP:
+                        newY = (newY >= 0) ? newY - step : (int) (getHeight() - avatar.getHeight());
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        newY = (newY + step <= getHeight()) ? newY + step : 0;
+                        break;
                 }
+
+                avatar.setLocation(newX, newY);
+                person.setLocation(newX, newY);
+                component.repaint();
             }
         });
+
     }
 
     public int getCountDown() {
@@ -195,5 +171,14 @@ public class GameFrame extends JFrame {
         } else {
             gameOver();
         }
+    }
+
+    private List<Obstacle> createObstacles(int numObstacles, int obstacleWidth, int obstacleHeight) {
+        List<Obstacle> obstacles = new ArrayList<>();
+        while (obstacles.size() < numObstacles) {
+            obstacles.add(new Obstacle(rand.nextInt(300) + 45, obstacleWidth, obstacleHeight,
+                    rand.nextInt(1500), rand.nextInt(400)));
+        }
+        return obstacles;
     }
 }

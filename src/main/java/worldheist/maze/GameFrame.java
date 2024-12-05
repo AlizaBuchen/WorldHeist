@@ -5,12 +5,14 @@ import worldheist.general.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
 
 public class GameFrame extends JFrame {
-    Random rand = new Random();
+    private boolean gameOver;
+    private int[] countDown;
+    private boolean[] start;
+    private Timer timer;
 
     public GameFrame() {
         setSize(1500, 800);
@@ -18,8 +20,9 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
 
-        Avatar avatar = new Avatar(750, 750, 55, 60);
-        List<Wall> walls = createMaze();
+        Avatar avatar = new Avatar(750, 750, 16, 16);
+        MazeGenerator mazeGenerator = new MazeGenerator(getWidth(), getHeight());
+        List<Wall> walls = mazeGenerator.createMaze();
 
         GameComponent component = new GameComponent(avatar, walls);
         component.setBounds(0, 0, 1500, 800);
@@ -31,16 +34,30 @@ public class GameFrame extends JFrame {
         person.setBounds((int) avatar.getX(), (int) avatar.getY(), (int) avatar.getWidth(), (int) avatar.getHeight());
         add(person);
 
-        MazeController controller = new MazeController(avatar, walls, component);
-        final boolean[] start = {false};
+        JLabel clock = new JLabel();
+        clock.setFont(new Font("Arial", Font.BOLD, 16));
+        clock.setText("Time: 60");
+        clock.setBounds(getWidth() - 110, 5, 100, 25);
+        add(clock);
 
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                controller.play();
-                start[0] = true;
+        MazeController controller = new MazeController(avatar, walls, this);
+        start = new boolean[]{false};
+        countDown = new int[]{59};
+
+        timer = new Timer(1000, e -> {
+            clock.setText("Time: " + countDown[0]);
+
+            if (countDown[0] <= 0 || gameOver) {
+                timer.stop();
+                start[0] = false;
+            } else {
+                countDown[0]--;
             }
         });
+
+        controller.play();
+        start[0] = true;
+        timer.start();
 
         addKeyListener(new KeyAdapter() {
             @Override
@@ -73,30 +90,11 @@ public class GameFrame extends JFrame {
         component.repaint();
     }
 
-    private List<Wall> createMaze() {
-        List<Wall> walls = new ArrayList<>();
-        int x;
-        int y = 0;
+    public void gameOver() {
+        gameOver = true;
+    }
 
-        while (walls.size() < 50) {
-            int width = rand.nextInt(500) + 200;
-            int lOrR = rand.nextInt(2);
-//            x = lOrR == 0 ? 0 : getWidth() - width;
-            x = rand.nextInt(getWidth());
-            y += 50;
-
-            boolean overlap = false;
-            for (Wall w : walls) {
-                if (w.intersects(new Rectangle(x, y, width, 50))) {
-                    overlap = true;
-                    break;
-                }
-            }
-
-            if (!overlap) {
-                walls.add(new Wall(x, y, width, 50));
-            }
-        }
-        return walls;
+    public int getCountDown() {
+        return countDown[0];
     }
 }
