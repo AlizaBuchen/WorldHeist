@@ -9,11 +9,11 @@ import java.util.List;
 public class GameComponent extends JComponent {
     private final Avatar avatar;
 
-    private final List<Obstacle> obstacles;
+    private final List<Ball> balls;
 
-    public GameComponent(Avatar avatar, List<Obstacle> obstacles) {
+    public GameComponent(Avatar avatar, List<Ball> balls) {
         this.avatar = avatar;
-        this.obstacles = obstacles;
+        this.balls = balls;
     }
 
     @Override
@@ -23,9 +23,9 @@ public class GameComponent extends JComponent {
         g.setColor(Color.BLUE);
         g.fillRect((int) avatar.getX(), (int) avatar.getY(), (int) avatar.getWidth(), (int) avatar.getHeight());
 
-        for (Obstacle obstacle : obstacles) {
-            g.setColor(obstacle.getColor());
-            g.fillOval((int) obstacle.getX(), (int) obstacle.getY(), 30, 30);
+        for (Ball ball : balls) {
+            g.setColor(ball.getColor());
+            g.fillOval((int) ball.getX(), (int) ball.getY(), (int) ball.getWidth(), (int) ball.getHeight());
         }
     }
 }

@@ -2,19 +2,18 @@ package worldheist.dodgegame;
 
 import worldheist.general.Avatar;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
-public class Obstacle extends Ellipse2D.Double {
-    private static final int MIN_VELOCITY = 8;
-    private static final int MAX_VELOCITY = 15;
+public class Ball extends Ellipse2D.Double {
+    private static final int MIN_VELOCITY = 7;
+    private static final int MAX_VELOCITY = 12;
     private final int velocity;
     private int angle;
     private final Color color;
 
-    public Obstacle(int angle, int width, int height, double x, double y) {
+    public Ball(int angle, int width, int height, double x, double y) {
         super(x, y, width, height);
         this.angle = angle;
         this.velocity = new Random().nextInt(MAX_VELOCITY - MIN_VELOCITY + 1) + MIN_VELOCITY;

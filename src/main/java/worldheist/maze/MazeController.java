@@ -1,6 +1,8 @@
 package worldheist.maze;
 
 import worldheist.general.*;
+import worldheist.model.ObstacleFrame;
+
 import javax.swing.*;
 import java.util.List;
 
@@ -22,11 +24,11 @@ public class MazeController {
         timer = new Timer(1000 / 60, e -> {
             if (avatar.getY() <= 0 && frame.getCountDown() > 0) {
                 frame.gameOver();
-                JOptionPane.showMessageDialog(frame, "You win!");
                 gameOver = true;
+                frame.dispose();
+                new worldheist.endofgame.GameFrame().setVisible(true);
             }
-
-            if (frame.getCountDown() <= 0) {
+            else if (frame.getCountDown() <= 0) {
                 timer.stop();
                 if (!gameOver) {
                     frame.gameOver();
@@ -45,7 +47,7 @@ public class MazeController {
 
     private void hitWall() {
         for (Wall wall : walls) {
-            if (!wall.isHit() && wall.getBounds().intersects(avatar.getBounds())) {
+            if (wall.getBounds().intersects(avatar.getBounds())) {
                 frame.gameOver();
                 JOptionPane.showMessageDialog(frame, "Game Over! You lose:(");
                 frame.dispose();

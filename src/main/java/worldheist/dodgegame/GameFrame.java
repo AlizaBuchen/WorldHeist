@@ -1,7 +1,6 @@
 package worldheist.dodgegame;
 
 import worldheist.general.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -19,8 +18,8 @@ public class GameFrame extends JFrame {
     private JLabel person3;
     private Avatar avatar;
     private int lives;
-    private boolean[] start;
-    private List<Obstacle> obstacles;
+    private final boolean[] start;
+    private List<Ball> balls;
     private Timer timer;
     private final Random rand = new Random();
 
@@ -32,12 +31,12 @@ public class GameFrame extends JFrame {
 
         getContentPane().setBackground(Color.BLACK);
 
-        avatar = new Avatar(getWidth() / 2, getHeight() - 60, 55, 60);
+        avatar = new Avatar(getWidth() / 2, getHeight() - 60, 45, 50);
         lives = 3;
 
-        obstacles = createObstacles(10, 30, 30);
+        balls = createBalls(10, 30, 30);
 
-        component = new GameComponent(avatar, obstacles);
+        component = new GameComponent(avatar, balls);
         component.setBounds(0, 0, 1500, 800);
         add(component);
 
@@ -72,7 +71,7 @@ public class GameFrame extends JFrame {
 
         countDown = new int[]{59};
 
-        DodgeController controller = new DodgeController(avatar, obstacles, component, this);
+        DodgeController controller = new DodgeController(avatar, balls, component, this);
         start = new boolean[]{false};
 
         timer = new Timer(1000, e -> {
@@ -167,7 +166,7 @@ public class GameFrame extends JFrame {
         if (lives > 0) {
             avatar.setLocation(avatar.getStartX(), avatar.getStartY());
             person.setLocation((int) avatar.getX(), (int) avatar.getY());
-            for (Obstacle o : obstacles) {
+            for (Ball o : balls) {
                 o.setPosition(rand.nextInt(1500), rand.nextInt(400));
             }
             gameOver = false;
@@ -177,12 +176,16 @@ public class GameFrame extends JFrame {
         }
     }
 
-    private List<Obstacle> createObstacles(int numObstacles, int obstacleWidth, int obstacleHeight) {
-        List<Obstacle> obstacles = new ArrayList<>();
-        while (obstacles.size() < numObstacles) {
-            obstacles.add(new Obstacle(rand.nextInt(300) + 45, obstacleWidth, obstacleHeight,
+    private List<Ball> createBalls(int numBalls, int ballWidth, int ballHeight) {
+        List<Ball> balls = new ArrayList<>();
+        while (balls.size() < numBalls) {
+            balls.add(new Ball(rand.nextInt(300) + 45, ballWidth, ballHeight,
                     rand.nextInt(1500), rand.nextInt(400)));
         }
-        return obstacles;
+        return balls;
+    }
+
+    public static void main(String[] args) {
+        new GameFrame().setVisible(true);
     }
 }

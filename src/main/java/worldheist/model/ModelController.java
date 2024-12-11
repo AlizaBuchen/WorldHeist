@@ -38,8 +38,5 @@ public class ModelController {
                 break;
             }
         }
-        if (avatar.getY() + avatar.getHeight() <= 0) {
-            timer.stop();
-        }
     }
 }

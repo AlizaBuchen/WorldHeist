@@ -7,16 +7,16 @@ import java.util.List;
 
 public class DodgeController {
     private final Avatar avatar;
-    private final List<Obstacle> obstacles;
+    private final List<Ball> balls;
     private final GameComponent view;
     private final GameFrame frame;
     private Timer timer;
     private boolean gameOver;
     private int avatarHits = 0;
 
-    public DodgeController(Avatar avatar, List<Obstacle> walls, GameComponent view, GameFrame frame) {
+    public DodgeController(Avatar avatar, List<Ball> balls, GameComponent view, GameFrame frame) {
         this.avatar = avatar;
-        this.obstacles = walls;
+        this.balls = balls;
         this.view = view;
         this.frame = frame;
         gameOver = false;
@@ -34,14 +34,14 @@ public class DodgeController {
                 }
             }
 
-            for (Obstacle obstacle : obstacles) {
-                double newX = obstacle.updateX();
-                double newY = obstacle.updateY();
-                obstacle.setPosition(newX, newY);
-                obstacle.checkBounds(frame.getWidth(), frame.getHeight());
+            for (Ball ball : balls) {
+                double newX = ball.updateX();
+                double newY = ball.updateY();
+                ball.setPosition(newX, newY);
+                ball.checkBounds(frame.getWidth(), frame.getHeight());
                 view.repaint();
 
-                if (obstacle.hitsAvatar(avatar)) {
+                if (ball.hitsAvatar(avatar)) {
                     avatarHits++;
                     if (avatarHits >= 3) {
                         frame.gameOver();

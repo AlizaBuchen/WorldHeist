@@ -17,7 +17,7 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
 
-        Avatar avatar = new Avatar(750, 750, 55, 60);
+        Avatar avatar = new Avatar(750, 750, 45, 50);
         WallFactory wallFactory = new WallFactory(12, getWidth(), 30);
         List<Wall> walls = wallFactory.createWalls();
 
