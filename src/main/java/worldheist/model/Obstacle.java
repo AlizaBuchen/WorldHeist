@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class Obstacle {
-    protected int x, y, width, height;
+    protected int x;
+    protected int y;
+    protected int width;
+    protected int height;
 
     public Obstacle(int x, int y, int width, int height) {
         this.x = x;
