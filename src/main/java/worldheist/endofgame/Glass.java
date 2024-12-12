@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Glass extends Rectangle{
+public class Glass extends Rectangle {
     private int hits;
     private int numLines;
     private final List<Line> lines;
@@ -105,7 +105,10 @@ public class Glass extends Rectangle{
     }
 
     static class Line {
-        int x1, y1, x2, y2;
+        int x1;
+        int y1;
+        int x2;
+        int y2;
 
         public Line(int x1, int y1, int x2, int y2) {
             this.x1 = x1;

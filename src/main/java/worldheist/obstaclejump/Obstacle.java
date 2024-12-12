@@ -7,7 +7,8 @@ import java.awt.*;
 public class Obstacle extends Rectangle {
     private final int frameWidth;
     private String type;
-    public Obstacle (int x, int y, int width, int height, int frameWidth) {
+
+    public Obstacle(int x, int y, int width, int height, int frameWidth) {
         super(x, y, width, height);
         this.frameWidth = frameWidth;
     }

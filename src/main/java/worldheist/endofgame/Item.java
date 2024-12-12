@@ -21,7 +21,7 @@ public class Item extends Ellipse2D.Double {
         visible = true;
     }
 
-    public boolean isVisible () {
+    public boolean isVisible() {
         return visible;
     }
 }

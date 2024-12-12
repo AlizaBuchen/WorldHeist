@@ -21,6 +21,7 @@ public class ObstacleFactory {
         this.width = width;
         this.frameHeight = frameHeight;
     }
+
     public List<Obstacle> createObstacles() {
         List<Obstacle> obstacles = new ArrayList<>();
         while (obstacles.size() < numObstacles) {

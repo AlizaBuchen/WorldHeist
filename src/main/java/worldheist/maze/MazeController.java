@@ -26,8 +26,7 @@ public class MazeController {
                 gameOver = true;
                 frame.dispose();
                 new worldheist.endofgame.GameFrame().setVisible(true);
-            }
-            else if (frame.getCountDown() <= 0) {
+            } else if (frame.getCountDown() <= 0) {
                 timer.stop();
                 if (!gameOver) {
                     frame.gameOver();

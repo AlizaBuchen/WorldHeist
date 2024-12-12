@@ -23,7 +23,7 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
 
-        getContentPane().setBackground(new Color(255,210,160));
+        getContentPane().setBackground(new Color(255, 210, 160));
 
         avatar = new Avatar(75, getHeight() - 110, 45, 50);
 
@@ -48,7 +48,6 @@ public class GameFrame extends JFrame {
 
         countDown = new int[]{59};
 
-        JumpController controller = new JumpController(avatar, obstacles, component, this);
         start = new boolean[]{false};
 
         timer = new Timer(1000, e -> {
@@ -66,7 +65,9 @@ public class GameFrame extends JFrame {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (!start[0]) return;
+                if (!start[0]) {
+                    return;
+                }
 
                 int keyCode = e.getKeyCode();
                 if (keyCode == KeyEvent.VK_SPACE) {
@@ -80,6 +81,8 @@ public class GameFrame extends JFrame {
             person.setLocation((int) avatar.getX(), (int) avatar.getY());
             component.repaint();
         });
+
+        JumpController controller = new JumpController(avatar, obstacles, component, this);
 
         person.addMouseListener(new MouseAdapter() {
             @Override

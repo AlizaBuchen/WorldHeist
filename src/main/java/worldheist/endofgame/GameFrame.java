@@ -62,8 +62,6 @@ public class GameFrame extends JFrame {
         clock.setBounds(getWidth() - 100, 10, 100, 25);
         add(clock);
 
-        EndingController controller = new EndingController(avatar, glass, getaway, object, this, component, hammer);
-
         start = new boolean[]{false};
         countDown = new int[]{30};
 
@@ -81,6 +79,8 @@ public class GameFrame extends JFrame {
                 countDown[0]--;
             }
         });
+
+        EndingController controller = new EndingController(avatar, glass, getaway, object, this, component, hammer);
 
         controller.play();
         start[0] = true;
@@ -122,6 +122,7 @@ public class GameFrame extends JFrame {
                         case KeyEvent.VK_SPACE:
                             hammer.reverse();
                             moveHammer = false;
+                            break;
                         default:
                             break;
                     }

@@ -15,6 +15,7 @@ public class BallFactory {
         this.ballWidth = ballWidth;
         this.ballHeight = ballHeight;
     }
+
     public List<Ball> createBalls() {
         List<Ball> balls = new ArrayList<>();
         while (balls.size() < numBalls) {
