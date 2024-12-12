@@ -9,6 +9,9 @@ import java.util.List;
 
 
 public class GameFrame extends JFrame {
+    private final Avatar avatar;
+    private final JLabel person;
+    private final GameComponent component;
     private boolean gameOver;
     private int[] countDown;
     private boolean[] start;
@@ -20,15 +23,15 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
 
-        Avatar avatar = new Avatar(750, 750, 16, 16);
+        avatar = new Avatar(750, 750, 16, 16);
         MazeGenerator mazeGenerator = new MazeGenerator(getWidth(), getHeight());
         List<Wall> walls = mazeGenerator.createMaze();
 
-        GameComponent component = new GameComponent(avatar, walls);
+        component = new GameComponent(avatar, walls);
         component.setBounds(0, 0, 1500, 800);
         add(component);
 
-        JLabel person = new JLabel();
+        person = new JLabel();
         person.setOpaque(true);
         person.setBackground(Color.BLUE);
         person.setBounds((int) avatar.getX(), (int) avatar.getY(), (int) avatar.getWidth(), (int) avatar.getHeight());
@@ -55,10 +58,22 @@ public class GameFrame extends JFrame {
         });
 
         MazeController controller = new MazeController(avatar, walls, this);
-        controller.play();
         start[0] = true;
         timer.start();
 
+        person.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                controller.play();
+                moveAvatar();
+            }
+        });
+
+        setFocusable(true);
+        component.repaint();
+    }
+
+    private void moveAvatar() {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -85,9 +100,6 @@ public class GameFrame extends JFrame {
                 }
             }
         });
-
-        setFocusable(true);
-        component.repaint();
     }
 
     public void gameOver() {

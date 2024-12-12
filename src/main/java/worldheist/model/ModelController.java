@@ -3,27 +3,39 @@ package worldheist.model;
 import worldheist.general.*;
 
 import javax.swing.*;
-import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ModelController {
     private final Avatar avatar;
     private final List<Wall> walls;
     private final GameComponent view;
     private Timer timer;
+    private Random rand = new Random();
+    private List<JFrame> frames = new ArrayList<>();
+    private boolean gameFrameCreated;
 
     public ModelController(Avatar avatar, List<Wall> walls, GameComponent view) {
         this.avatar = avatar;
         this.walls = walls;
         this.view = view;
+        this.gameFrameCreated = false;
+        createFramesList();
+    }
+
+    private void createFramesList() {
+        frames.add(new worldheist.dodgegame.GameFrame());
+        frames.add(new worldheist.obstaclejump.GameFrame());
     }
 
     public void play() {
         timer = new Timer(1000 / 60, e -> {
-            hitWall();
             if (avatar.getY() + avatar.getHeight() <= 0) {
                 timer.stop();
-                new ObstacleFrame(new worldheist.maze.GameFrame()).setVisible(true);
+                endOfGame();
+            } else {
+                hitWall();
             }
         });
         timer.start();
@@ -33,10 +45,21 @@ public class ModelController {
         for (Wall wall : walls) {
             if (!wall.isHit() && wall.getBounds().intersects(avatar.getBounds())) {
                 wall.setHit(true);
-                new ObstacleFrame(new worldheist.dodgegame.GameFrame()).setVisible(true);
-                view.repaint();
-                break;
+                if (!frames.isEmpty()) {
+                    int frame = rand.nextInt(frames.size());
+                    frames.get(frame).setVisible(true);
+                    frames.remove(frames.get(frame));
+                    view.repaint();
+                    break;
+                }
             }
+        }
+    }
+
+    private void endOfGame() {
+        if (!gameFrameCreated) {
+            new worldheist.maze.GameFrame().setVisible(true);
+            gameFrameCreated = true;
         }
     }
 }

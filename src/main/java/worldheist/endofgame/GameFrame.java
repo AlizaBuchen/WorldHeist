@@ -147,7 +147,7 @@ public class GameFrame extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                int step = 7;
+                int step = 10;
                 int newX = (int) getaway.getX();
                 int newY = (int) getaway.getY();
 

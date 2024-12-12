@@ -5,7 +5,6 @@ import worldheist.general.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import java.util.Random;
 
 public class GameComponent extends JComponent {
     private final Avatar avatar;

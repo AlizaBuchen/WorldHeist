@@ -34,7 +34,8 @@ public class GameFrame extends JFrame {
         avatar = new Avatar(getWidth() / 2, getHeight() - 60, 45, 50);
         lives = 3;
 
-        balls = createBalls(10, 30, 30);
+        BallFactory ballFactory = new BallFactory(10, 30, 30);
+        balls = ballFactory.createBalls();
 
         component = new GameComponent(avatar, balls);
         component.setBounds(0, 0, 1500, 800);
@@ -174,18 +175,5 @@ public class GameFrame extends JFrame {
         } else {
             gameOver();
         }
-    }
-
-    private List<Ball> createBalls(int numBalls, int ballWidth, int ballHeight) {
-        List<Ball> balls = new ArrayList<>();
-        while (balls.size() < numBalls) {
-            balls.add(new Ball(rand.nextInt(300) + 45, ballWidth, ballHeight,
-                    rand.nextInt(1500), rand.nextInt(400)));
-        }
-        return balls;
-    }
-
-    public static void main(String[] args) {
-        new GameFrame().setVisible(true);
     }
 }

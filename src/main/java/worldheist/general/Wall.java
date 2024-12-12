@@ -24,11 +24,6 @@ public class Wall extends Rectangle {
         this.hit = hit;
     }
 
-    public void setRandomLocation(int width, int height) {
-        this.x = rand.nextInt(width);
-        this.y = rand.nextInt(height);
-    }
-
     public boolean contains(int ballCenterX, int ballCenterY) {
         return ballCenterX >= x && ballCenterX <= x + width
                 && ballCenterY >= y && ballCenterY <= y + height;

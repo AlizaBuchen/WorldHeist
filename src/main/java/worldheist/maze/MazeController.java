@@ -1,7 +1,6 @@
 package worldheist.maze;
 
 import worldheist.general.*;
-import worldheist.model.ObstacleFrame;
 
 import javax.swing.*;
 import java.util.List;
@@ -49,8 +48,8 @@ public class MazeController {
         for (Wall wall : walls) {
             if (wall.getBounds().intersects(avatar.getBounds())) {
                 frame.gameOver();
-                JOptionPane.showMessageDialog(frame, "Game Over! You lose:(");
                 frame.dispose();
+                JOptionPane.showMessageDialog(frame, "Game Over! You lose:(");
                 gameOver = true;
                 break;
             }

@@ -13,7 +13,7 @@ public class GameComponent extends JComponent {
     private final Wall getaway;
     private final Item object;
     private final Hammer hammer;
-    private Timer fallTimer;  // Timer for animation
+    private Timer fallTimer;
 
     public GameComponent(Avatar avatar, Glass glass, Wall getaway, Item object, Hammer hammer) {
         this.avatar = avatar;
@@ -51,7 +51,7 @@ public class GameComponent extends JComponent {
         g.setColor(Color.BLUE);
         g.fillRect((int) avatar.getX(), (int) avatar.getY(), (int) avatar.getWidth(), (int) avatar.getHeight());
 
-        g.setColor(Color.BLACK);
+        g.setColor(Color.WHITE);
         Rectangle r1 = hammer.getBottom();
         g.fillRect((int) r1.getX(), (int) r1.getY(), (int) r1.getWidth(), (int) r1.getHeight());
         Rectangle r2 = hammer.getTop();
