@@ -1,6 +1,6 @@
 package worldheist.model;
 
-import worldheist.Lives;
+import worldheist.general.Lives;
 import worldheist.general.*;
 
 import javax.swing.*;
@@ -77,6 +77,7 @@ public class ModelController {
         if (!gameFrameCreated) {
             new worldheist.maze.GameFrame().setVisible(true);
             gameFrameCreated = true;
+            frame.dispose();
         }
     }
 

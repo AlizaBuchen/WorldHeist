@@ -1,6 +1,6 @@
 package worldheist.obstaclejump;
 
-import worldheist.Lives;
+import worldheist.general.Lives;
 import worldheist.general.*;
 
 import javax.swing.*;

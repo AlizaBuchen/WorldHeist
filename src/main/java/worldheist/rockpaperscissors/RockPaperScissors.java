@@ -1,7 +1,6 @@
 package worldheist.rockpaperscissors;
 
-import worldheist.Lives;
-import worldheist.endofgame.GameFrame;
+import worldheist.general.Lives;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,11 +26,11 @@ public class RockPaperScissors extends JFrame implements ActionListener {
         setLayout(new BorderLayout());
         random = new Random();
 
-        JPanel topPanel = new JPanel();
         statusLabel = new JLabel("Place your bet and make a choice:", SwingConstants.CENTER);
         statusLabel.setFont(new Font("Arial", Font.BOLD, 15));
         pointsLabel = new JLabel("Points: " + points, SwingConstants.CENTER);
         pointsLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        JPanel topPanel = new JPanel();
         topPanel.setLayout(new GridLayout(2, 1));
         topPanel.add(statusLabel);
         topPanel.add(pointsLabel);

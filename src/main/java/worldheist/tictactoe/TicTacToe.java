@@ -1,6 +1,6 @@
 package worldheist.tictactoe;
 
-import worldheist.Lives;
+import worldheist.general.Lives;
 
 import javax.swing.*;
 import java.awt.*;

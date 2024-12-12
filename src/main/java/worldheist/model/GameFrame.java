@@ -21,7 +21,7 @@ public class GameFrame extends JFrame {
         setLayout(null);
 
         Avatar avatar = new Avatar(750, 750, 45, 50);
-        WallFactory wallFactory = new WallFactory(12, getWidth(), 30);
+        WallFactory wallFactory = new WallFactory(4, getWidth(), 30);
         List<Wall> walls = wallFactory.createWalls();
 
         component = new GameComponent(avatar, walls);

@@ -1,5 +1,6 @@
 package worldheist.endofgame;
 
+import worldheist.general.Lives;
 import worldheist.general.*;
 import javax.swing.*;
 
