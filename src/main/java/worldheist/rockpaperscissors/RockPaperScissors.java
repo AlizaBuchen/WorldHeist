@@ -1,4 +1,6 @@
-package rockpaperscissors;
+package worldheist.rockpaperscissors;
+
+import worldheist.Lives;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,8 +12,8 @@ public class RockPaperScissors extends JFrame implements ActionListener {
     private int userWins = 0;
     private int compWins = 0;
     private int rounds = 0;
-    private int points = 10; // User starts with thiss amount of points
-    private final int WinningPoints = 50; // Maximum points required for user to win
+    private int points = 10;
+    private final int WinningPoints = 50;
     private JLabel statusLabel;
     private JLabel pointsLabel;
     private JTextField betField;
@@ -19,13 +21,12 @@ public class RockPaperScissors extends JFrame implements ActionListener {
 
     public RockPaperScissors() {
         setTitle("Rock, Paper, Scissors");
-        setSize(400, 400);
+        setSize(1500, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         random = new Random();
 
-
-        JPanel topPanel = new JPanel(); // top
+        JPanel topPanel = new JPanel();
         statusLabel = new JLabel("Place your bet and make a choice:", SwingConstants.CENTER);
         statusLabel.setFont(new Font("Arial", Font.BOLD, 15));
         pointsLabel = new JLabel("Points: " + points, SwingConstants.CENTER);
@@ -74,7 +75,6 @@ public class RockPaperScissors extends JFrame implements ActionListener {
             return;
         }
 
-        // Determine result
         String result;
         if (userChoice.equals(compChoice)) {
             result = "It's a tie!";
@@ -85,11 +85,11 @@ public class RockPaperScissors extends JFrame implements ActionListener {
         ) {
             result = "You win!";
             userWins++;
-            points += bet; // each time user wins, increments points
+            points += bet;
         } else {
             result = "I win!";
             compWins++;
-            points -= bet; // each time user loses, decrements points
+            points -= bet;
         }
 
         rounds++;
@@ -101,14 +101,16 @@ public class RockPaperScissors extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, String.format("Game Over!\nRounds: " +
                             "%d\nYour Wins: %d\nComputer Wins: %d\nFinal Points: %d",
                     rounds, userWins, compWins, points));
-            resetGame();
+            Lives.lives--;
+            this.dispose();
         }
 
         if (points >= WinningPoints) {
             JOptionPane.showMessageDialog(this, String.format("Congratulations, You Win!\nRounds:" +
                             " %d\nYour Wins: %d\nComputer Wins: %d\nFinal Points: %d",
                     rounds, userWins, compWins, points));
-            resetGame();
+            Lives.lives--;
+            this.dispose();
         }
     }
 
@@ -116,15 +118,8 @@ public class RockPaperScissors extends JFrame implements ActionListener {
         userWins = 0;
         compWins = 0;
         rounds = 0;
-        points = 10; // Reset points to start amount
+        points = 10;
         statusLabel.setText("Place your bet and make a choice!!");
         pointsLabel.setText("Points: " + points);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            RockPaperScissors game = new RockPaperScissors();
-            game.setVisible(true);
-        });
     }
 }

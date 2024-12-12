@@ -25,9 +25,9 @@ public class GameFrame extends JFrame {
 
         getContentPane().setBackground(new Color(255, 210, 160));
 
-        avatar = new Avatar(75, getHeight() - 110, 45, 50);
+        avatar = new Avatar(75, getHeight() - 95, 45, 50);
 
-        ObstacleFactory obstacleFactory = new ObstacleFactory(50, 30, 40, getWidth(), getHeight());
+        ObstacleFactory obstacleFactory = new ObstacleFactory(50, 35, 45, getWidth(), getHeight());
         List<Obstacle> obstacles = obstacleFactory.createObstacles();
 
         component = new GameComponent(avatar, obstacles);

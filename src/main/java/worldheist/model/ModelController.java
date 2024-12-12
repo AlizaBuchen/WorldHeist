@@ -1,5 +1,6 @@
 package worldheist.model;
 
+import worldheist.Lives;
 import worldheist.general.*;
 
 import javax.swing.*;
@@ -11,27 +12,40 @@ public class ModelController {
     private final Avatar avatar;
     private final List<Wall> walls;
     private final GameComponent view;
+    private final GameFrame frame;
     private Timer timer;
     private Random rand = new Random();
     private List<JFrame> frames = new ArrayList<>();
     private boolean gameFrameCreated;
+    private boolean gameOver;
+    private int lives;
 
-    public ModelController(Avatar avatar, List<Wall> walls, GameComponent view) {
+    public ModelController(Avatar avatar, List<Wall> walls, GameComponent view, GameFrame frame) {
         this.avatar = avatar;
         this.walls = walls;
         this.view = view;
+        this.frame = frame;
         this.gameFrameCreated = false;
+        this.gameOver = false;
         createFramesList();
+        lives = Lives.lives;
     }
 
     private void createFramesList() {
         frames.add(new worldheist.dodgegame.GameFrame());
         frames.add(new worldheist.obstaclejump.GameFrame());
+        frames.add(new worldheist.tictactoe.TicTacToe());
+        frames.add(new worldheist.rockpaperscissors.RockPaperScissors());
     }
 
     public void play() {
         timer = new Timer(1000 / 60, e -> {
-            if (avatar.getY() + avatar.getHeight() <= 0) {
+            if (lives <= 0 && !gameOver) {
+                timer.stop();
+                gameOver = true;
+                JOptionPane.showMessageDialog(view, "You got caught. You Lose :(");
+                frame.dispose();
+            } else if (avatar.getY() + avatar.getHeight() <= 0) {
                 timer.stop();
                 endOfGame();
             } else {
@@ -53,6 +67,9 @@ public class ModelController {
                     break;
                 }
             }
+            lives = Lives.lives;
+            frame.resetLives();
+            view.repaint();
         }
     }
 
@@ -61,5 +78,9 @@ public class ModelController {
             new worldheist.maze.GameFrame().setVisible(true);
             gameFrameCreated = true;
         }
+    }
+
+    public int getLives() {
+        return lives;
     }
 }

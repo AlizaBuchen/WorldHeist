@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Random;
 
 public class GameFrame extends JFrame {
+    private final JLabel lives;
+    private final GameComponent component;
+    private final ModelController controller;
 
     public GameFrame() {
         setSize(1500, 800);
@@ -21,7 +24,7 @@ public class GameFrame extends JFrame {
         WallFactory wallFactory = new WallFactory(12, getWidth(), 30);
         List<Wall> walls = wallFactory.createWalls();
 
-        GameComponent component = new GameComponent(avatar, walls);
+        component = new GameComponent(avatar, walls);
         component.setBounds(0, 0, 1500, 800);
         add(component);
 
@@ -31,7 +34,14 @@ public class GameFrame extends JFrame {
         person.setBounds((int) avatar.getX(), (int) avatar.getY(), (int) avatar.getWidth(), (int) avatar.getHeight());
         add(person);
 
-        ModelController controller = new ModelController(avatar, walls, component);
+        controller = new ModelController(avatar, walls, component, this);
+
+        lives = new JLabel();
+        lives.setText("Lives: " + controller.getLives());
+        lives.setBounds(10, 10, 100, 30);
+        lives.setFont(new Font("Arial", Font.BOLD, 16));
+        add(lives);
+
         final boolean[] start = {false};
 
         addMouseListener(new MouseAdapter() {
@@ -71,5 +81,9 @@ public class GameFrame extends JFrame {
 
         setFocusable(true);
         component.repaint();
+    }
+
+    public void resetLives() {
+        lives.setText("Lives: " + controller.getLives());
     }
 }
