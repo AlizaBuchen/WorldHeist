@@ -14,8 +14,6 @@ public class RockPaperScissors extends JFrame implements ActionListener {
     private final int WinningPoints = 50; // Maximum points required for user to win
     private JLabel statusLabel;
     private JLabel pointsLabel;
-    private JLabel userScoreLabel;
-    private JLabel compScoreLabel;
     private JTextField betField;
     private Random random;
 
