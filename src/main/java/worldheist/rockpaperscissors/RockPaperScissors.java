@@ -1,6 +1,7 @@
 package worldheist.rockpaperscissors;
 
 import worldheist.Lives;
+import worldheist.endofgame.GameFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,7 @@ public class RockPaperScissors extends JFrame implements ActionListener {
     private int compWins = 0;
     private int rounds = 0;
     private int points = 10;
-    private final int WinningPoints = 50;
+    private final int winningPoints = 50;
     private JLabel statusLabel;
     private JLabel pointsLabel;
     private JTextField betField;
@@ -34,12 +35,16 @@ public class RockPaperScissors extends JFrame implements ActionListener {
         topPanel.setLayout(new GridLayout(2, 1));
         topPanel.add(statusLabel);
         topPanel.add(pointsLabel);
-        JPanel middlePanel = new JPanel(); // middle
+        add(topPanel, BorderLayout.NORTH);
+
+        JPanel middlePanel = new JPanel();
         JLabel betLabel = new JLabel("Bet (1-10): ");
         betField = new JTextField(5);
         middlePanel.add(betLabel);
         middlePanel.add(betField);
-        JPanel bottomPanel = new JPanel(); //bottom
+        add(middlePanel, BorderLayout.CENTER);
+
+        JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new FlowLayout());
         JButton rockButton = new JButton("Rock");
         JButton paperButton = new JButton("Paper");
@@ -50,9 +55,6 @@ public class RockPaperScissors extends JFrame implements ActionListener {
         bottomPanel.add(rockButton);
         bottomPanel.add(paperButton);
         bottomPanel.add(scissorsButton);
-
-        add(topPanel, BorderLayout.NORTH);
-        add(middlePanel, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
@@ -96,7 +98,6 @@ public class RockPaperScissors extends JFrame implements ActionListener {
         statusLabel.setText(String.format("You chose %s, I chose %s. %s", userChoice, compChoice, result));
         pointsLabel.setText("Points: " + points);
 
-        // game over:
         if (points <= 0) {
             JOptionPane.showMessageDialog(this, String.format("Game Over!\nRounds: " +
                             "%d\nYour Wins: %d\nComputer Wins: %d\nFinal Points: %d",
@@ -105,21 +106,12 @@ public class RockPaperScissors extends JFrame implements ActionListener {
             this.dispose();
         }
 
-        if (points >= WinningPoints) {
+        if (points >= winningPoints) {
             JOptionPane.showMessageDialog(this, String.format("Congratulations, You Win!\nRounds:" +
                             " %d\nYour Wins: %d\nComputer Wins: %d\nFinal Points: %d",
                     rounds, userWins, compWins, points));
             Lives.lives--;
             this.dispose();
         }
-    }
-
-    private void resetGame() {
-        userWins = 0;
-        compWins = 0;
-        rounds = 0;
-        points = 10;
-        statusLabel.setText("Place your bet and make a choice!!");
-        pointsLabel.setText("Points: " + points);
     }
 }
