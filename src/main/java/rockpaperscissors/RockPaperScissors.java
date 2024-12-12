@@ -1,4 +1,4 @@
-package rockPaperScissors;
+package rockpaperscissors;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,9 +10,10 @@ public class RockPaperScissors extends JFrame implements ActionListener {
     private int userWins = 0;
     private int compWins = 0;
     private int rounds = 0;
-    private int points = 10; // User starts with this amount of points
-    private final int WINNING_POINTS = 50; // amount of points required for game over and user to win
-    private JLabel status, pointsLabel, userScore, compScore;
+    private int points = 10; // User starts with thiss amount of points
+    private final int WinningPoints = 50; // Maximum points required for user to win
+    private JLabel statusLabel;
+    private JLabel pointsLabel;
     private JTextField betField;
     private Random random;
 
@@ -22,37 +23,29 @@ public class RockPaperScissors extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         random = new Random();
-        JPanel topPanel = new JPanel();
-        JPanel middlePanel = new JPanel();
-        JPanel bottomPanel = new JPanel();
 
-        status = new JLabel("Place your bet and make a choice:", SwingConstants.CENTER);
-        status.setFont(new Font("Arial", Font.BOLD, 15));
+
+        JPanel topPanel = new JPanel(); // top
+        statusLabel = new JLabel("Place your bet and make a choice:", SwingConstants.CENTER);
+        statusLabel.setFont(new Font("Arial", Font.BOLD, 15));
         pointsLabel = new JLabel("Points: " + points, SwingConstants.CENTER);
         pointsLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-
-        userScore = new JLabel("Your Wins: 0");
-        compScore = new JLabel("Computer Wins: 0");
-
-        JButton rockButton = new JButton("Rock"); // buttons for user to choose
+        topPanel.setLayout(new GridLayout(2, 1));
+        topPanel.add(statusLabel);
+        topPanel.add(pointsLabel);
+        JPanel middlePanel = new JPanel(); // middle
+        JLabel betLabel = new JLabel("Bet (1-10): ");
+        betField = new JTextField(5);
+        middlePanel.add(betLabel);
+        middlePanel.add(betField);
+        JPanel bottomPanel = new JPanel(); //bottom
+        bottomPanel.setLayout(new FlowLayout());
+        JButton rockButton = new JButton("Rock");
         JButton paperButton = new JButton("Paper");
         JButton scissorsButton = new JButton("Scissors");
         rockButton.addActionListener(this);
         paperButton.addActionListener(this);
         scissorsButton.addActionListener(this);
-
-        JLabel betLabel = new JLabel("Bet (1-10): "); // betting field
-        betField = new JTextField(5);
-
-
-        topPanel.setLayout(new GridLayout(2, 1));
-        topPanel.add(status);
-        topPanel.add(pointsLabel);
-
-        middlePanel.add(betLabel);
-        middlePanel.add(betField);
-
-        bottomPanel.setLayout(new FlowLayout());
         bottomPanel.add(rockButton);
         bottomPanel.add(paperButton);
         bottomPanel.add(scissorsButton);
@@ -73,15 +66,15 @@ public class RockPaperScissors extends JFrame implements ActionListener {
         try {
             bet = Integer.parseInt(betField.getText());
             if (bet < 1 || bet > 10) {
-                status.setText("Invalid bet! Enter a number between 1 and 10.");
+                statusLabel.setText("Invalid number. Enter a number between 1 and 10.");
                 return;
             }
         } catch (NumberFormatException ex) {
-            status.setText("Invalid bet! Enter a valid number.");
+            statusLabel.setText("Invalid number. Enter a valid number.");
             return;
         }
 
-        // result::
+        // Determine result
         String result;
         if (userChoice.equals(compChoice)) {
             result = "It's a tie!";
@@ -92,28 +85,28 @@ public class RockPaperScissors extends JFrame implements ActionListener {
         ) {
             result = "You win!";
             userWins++;
-            points += bet; // each win, increments the points
+            points += bet; // each time user wins, increments points
         } else {
             result = "I win!";
             compWins++;
-            points -= bet; // each loss, points go down
+            points -= bet; // each time user loses, decrements points
         }
 
         rounds++;
-        status.setText(String.format("You chose %s, I chose %s. %s", userChoice, compChoice, result));
+        statusLabel.setText(String.format("You chose %s, I chose %s. %s", userChoice, compChoice, result));
         pointsLabel.setText("Points: " + points);
-        userScore.setText("Your Wins: " + userWins);
-        compScore.setText("Computer Wins: " + compWins);
 
-        // to end the game::
+        // game over:
         if (points <= 0) {
-            JOptionPane.showMessageDialog(this, String.format("Game Over!\nRounds: %d\nYour Wins: %d\nComputer Wins: %d\nFinal Points: %d",
+            JOptionPane.showMessageDialog(this, String.format("Game Over!\nRounds: " +
+                            "%d\nYour Wins: %d\nComputer Wins: %d\nFinal Points: %d",
                     rounds, userWins, compWins, points));
             resetGame();
         }
 
-        if (points >= WINNING_POINTS) {
-            JOptionPane.showMessageDialog(this, String.format("Congratulations, You Win!\nRounds: %d\nYour Wins: %d\nComputer Wins: %d\nFinal Points: %d",
+        if (points >= WinningPoints) {
+            JOptionPane.showMessageDialog(this, String.format("Congratulations, You Win!\nRounds:" +
+                            " %d\nYour Wins: %d\nComputer Wins: %d\nFinal Points: %d",
                     rounds, userWins, compWins, points));
             resetGame();
         }
@@ -124,7 +117,7 @@ public class RockPaperScissors extends JFrame implements ActionListener {
         compWins = 0;
         rounds = 0;
         points = 10; // Reset points to start amount
-        status.setText("Place your bet and make a choice!");
+        statusLabel.setText("Place your bet and make a choice!!");
         pointsLabel.setText("Points: " + points);
     }
 
