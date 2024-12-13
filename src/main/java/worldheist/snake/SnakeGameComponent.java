@@ -1,4 +1,4 @@
-package snake;
+package worldheist.snake;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,8 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
-import static snake.Direction.*;
 
 public class SnakeGameComponent extends JComponent implements ActionListener {
 
@@ -18,7 +16,7 @@ public class SnakeGameComponent extends JComponent implements ActionListener {
 
     private final Snake snake;
     private final Food food;
-    private Direction direction = RIGHT;
+    private Direction direction = Direction.RIGHT;
     private boolean running = false;
     private Timer timer;
 
@@ -117,13 +115,13 @@ public class SnakeGameComponent extends JComponent implements ActionListener {
         public void keyPressed(KeyEvent e) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT -> {
-                    if (direction != RIGHT) {
+                    if (direction != Direction.RIGHT) {
                         direction = Direction.LEFT;
                     }
                 }
                 case KeyEvent.VK_RIGHT -> {
                     if (direction != Direction.LEFT) {
-                        direction = RIGHT;
+                        direction = Direction.RIGHT;
                     }
                 }
                 case KeyEvent.VK_UP -> {

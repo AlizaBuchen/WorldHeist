@@ -1,4 +1,4 @@
-package snake;
+package worldheist.snake;
 
 public enum Direction {
     UP,

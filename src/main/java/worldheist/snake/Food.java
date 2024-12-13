@@ -1,4 +1,4 @@
-package snake;
+package worldheist.snake;
 
 import java.util.Random;
 
