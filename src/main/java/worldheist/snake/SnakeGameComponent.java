@@ -9,8 +9,8 @@ import java.awt.event.KeyEvent;
 
 public class SnakeGameComponent extends JComponent implements ActionListener {
 
-    private static final int WIDTH = 1500;
-    private static final int HEIGHT = 800;
+    private static final int WIDTH = 1400;
+    private static final int HEIGHT = 775;
     private static final int UNIT_SIZE = 20;
     private static final int TOTAL_CELLS = (WIDTH * HEIGHT) / (UNIT_SIZE * UNIT_SIZE);
 
