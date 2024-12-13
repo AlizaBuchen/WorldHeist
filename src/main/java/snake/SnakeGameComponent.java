@@ -73,7 +73,7 @@ public class SnakeGameComponent extends JComponent implements ActionListener {
         if (snake.isWinner())
         {
             g.setColor(Color.CYAN);
-            g.setFont( new Font ( "Sans serif", Font.BOLD, 100));
+            g.setFont(new Font("Sans serif", Font.BOLD, 100));
             FontMetrics metrics = getFontMetrics(g.getFont());
             g.drawString("WINNER!!!", (WIDTH - metrics.stringWidth("WINNER!!!")) / 2, HEIGHT / 2);
         } else
