@@ -1,4 +1,4 @@
-package game;
+package snake;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import static snake.game.Direction.*;
+import static snake.Direction.*;
 
 public class SnakeGameComponent extends JComponent implements ActionListener {
 
@@ -73,11 +73,10 @@ public class SnakeGameComponent extends JComponent implements ActionListener {
         if (snake.isWinner())
         {
             g.setColor(Color.CYAN);
-            g.setFont(new Font ("Sans serif", Font.BOLD, 100));
+            g.setFont( new Font ( "Sans serif", Font.BOLD, 100));
             FontMetrics metrics = getFontMetrics(g.getFont());
             g.drawString("WINNER!!!", (WIDTH - metrics.stringWidth("WINNER!!!")) / 2, HEIGHT / 2);
-        }
-        else
+        } else
         {
             g.setColor(Color.RED);
             g.setFont(new Font("Sans serif", Font.BOLD, 50));
@@ -136,6 +135,8 @@ public class SnakeGameComponent extends JComponent implements ActionListener {
                     if (direction != Direction.UP) {
                         direction = Direction.DOWN;
                     }
+                }
+                default -> {
                 }
             }
         }

@@ -1,4 +1,5 @@
-package game;
+package snake;
+
 public class Snake {
 
     private int length;
@@ -50,6 +51,8 @@ public class Snake {
             case RIGHT -> x[0] += unitSize;
             case UP -> y[0] -= unitSize;
             case DOWN -> y[0] += unitSize;
+            default -> {
+            }
         }
     }
 
