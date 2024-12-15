@@ -128,12 +128,12 @@ public class GameComponent extends JComponent {
     }
 
     public void drawWinner(Graphics g) {
-        frame.getContentPane().setBackground(new Color	(187,220,245));
+        frame.getContentPane().setBackground(new Color(187, 220, 245));
         g.setFont(new Font("Sans serif", Font.BOLD, 100));
         FontMetrics metrics = getFontMetrics(g.getFont());
-        g.setColor(new Color(140,200,255));
-        g.drawString("You Win!", (frame.getWidth() - metrics.stringWidth("You Win!")) / 2
-                , frame.getHeight() / 2);
+        g.setColor(new Color(140, 200, 255));
+        g.drawString("You Win!", (frame.getWidth() - metrics.stringWidth("You Win!")) / 2,
+                frame.getHeight() / 2);
         g.setColor(Color.RED);
         g.fillRect((int) getaway.getX(), (int) getaway.getY(), (int) getaway.getWidth(), (int) getaway.getHeight());
         g.setColor(Color.BLUE);
