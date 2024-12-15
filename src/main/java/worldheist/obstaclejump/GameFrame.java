@@ -46,12 +46,13 @@ public class GameFrame extends JFrame {
         clock.setBounds(getWidth() - 105, 10, 100, 30);
         add(clock);
 
-        countDown = new int[]{59};
+        countDown = new int[]{600};
 
         start = new boolean[]{false};
 
-        timer = new Timer(1000, e -> {
-            clock.setText("Time: " + countDown[0]);
+        timer = new Timer(100, e -> {
+            int seconds = countDown[0] / 10;
+            clock.setText("Time: " + seconds);
 
             if (countDown[0] <= 0 || gameOver) {
                 timer.stop();
@@ -61,7 +62,7 @@ public class GameFrame extends JFrame {
             }
         });
 
-        // KeyListener for controlling the jump
+
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -106,9 +107,5 @@ public class GameFrame extends JFrame {
     public void gameOver() {
         gameOver = true;
         gameLoopTimer.stop();
-    }
-
-    public static void main(String[] args) {
-        new GameFrame().setVisible(true);
     }
 }

@@ -20,7 +20,7 @@ public class GameComponent extends JComponent {
         super.paintComponent(g);
         for (Wall wall : walls) {
             if (!wall.isHit()) {
-                g.setColor(Color.GRAY);
+                g.setColor(Color.LIGHT_GRAY);
                 g.fillRect(wall.x, wall.y, wall.width, wall.height);
 
                 g.setColor(Color.BLACK);

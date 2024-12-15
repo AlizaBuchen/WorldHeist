@@ -38,7 +38,7 @@ public class GameFrame extends JFrame {
         object = new Item(glass.getCenterX() - 8, glass.getCenterY() - 10, 16, 20);
         hammer = new Hammer(new Rectangle((int) (avatar.getX() + avatar.getWidth()),
                 (int) avatar.getY(), 10, 60));
-        component = new GameComponent(avatar, glass, getaway, object, hammer);
+        component = new GameComponent(avatar, glass, getaway, object, hammer, this);
         component.setBounds(0, 0, 1500, 800);
         add(component);
 
@@ -189,5 +189,23 @@ public class GameFrame extends JFrame {
 
     public int getCountDown() {
         return countDown[0];
+    }
+
+    public void setWinner() {
+        removeListeners();
+        remove(clock);
+        Timer endTimer = new Timer(12, e -> {
+            int newX = (int) getaway.getX() + 4;
+            if (newX + getaway.getWidth() > getWidth()) {
+                newX = 0;
+            }
+            getaway.setLocation(newX, (int) getaway.getY());
+            car.setLocation((int) getaway.getX(), (int) getaway.getY());
+            avatar.setLocation((int) (getaway.getCenterX() - avatar.getWidth() / 2),
+                    (int) (getaway.getY() - avatar.getHeight() / 2));
+            person.setLocation((int) (getaway.getCenterX() - avatar.getWidth() / 2),
+                    (int) (getaway.getY() - avatar.getHeight() / 2));
+        });
+        endTimer.start();
     }
 }

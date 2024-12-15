@@ -70,13 +70,14 @@ public class GameFrame extends JFrame {
 
         person = person1;
 
-        countDown = new int[]{59};
-
         DodgeController controller = new DodgeController(avatar, balls, component, this);
+
+        countDown = new int[]{600};
         start = new boolean[]{false};
 
-        timer = new Timer(1000, e -> {
-            clock.setText("Time: " + countDown[0]);
+        timer = new Timer(100, e -> {
+            int seconds = countDown[0] / 10;
+            clock.setText("Time: " + seconds);
 
             if (countDown[0] <= 0 || gameOver) {
                 timer.stop();

@@ -42,8 +42,14 @@ public class EndingController {
             if (getaway.getX() >= frame.getWidth()) {
                 frame.gameOver();
                 timer.stop();
-                JOptionPane.showMessageDialog(frame, "You have successfully obtained the object!\nYou Win!");
-                frame.dispose();
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
+                view.setWinner();
+                frame.setWinner();
+                view.repaint();
                 gameOver = true;
             }
             if (glass != null) {

@@ -109,7 +109,6 @@ public class RockPaperScissors extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, String.format("Congratulations, You Win!\nRounds:" +
                             " %d\nYour Wins: %d\nComputer Wins: %d\nFinal Points: %d",
                     rounds, userWins, compWins, points));
-            Lives.lives--;
             this.dispose();
         }
     }

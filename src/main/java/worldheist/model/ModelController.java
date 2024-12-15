@@ -2,6 +2,8 @@ package worldheist.model;
 
 import worldheist.general.Lives;
 import worldheist.general.*;
+import worldheist.snake.Snake;
+import worldheist.snake.SnakeGameFrame;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -19,6 +21,8 @@ public class ModelController {
     private boolean gameFrameCreated;
     private boolean gameOver;
     private int lives;
+    private int numFrames = 5;
+    private boolean snake;
 
     public ModelController(Avatar avatar, List<Wall> walls, GameComponent view, GameFrame frame) {
         this.avatar = avatar;
@@ -29,6 +33,7 @@ public class ModelController {
         this.gameOver = false;
         createFramesList();
         lives = Lives.lives;
+        snake = false;
     }
 
     private void createFramesList() {
@@ -59,13 +64,17 @@ public class ModelController {
         for (Wall wall : walls) {
             if (!wall.isHit() && wall.getBounds().intersects(avatar.getBounds())) {
                 wall.setHit(true);
-                if (!frames.isEmpty()) {
-                    int frame = rand.nextInt(frames.size());
+                int frame = rand.nextInt(numFrames);
+                if (frame == numFrames - 1 && !snake) {
+                    new SnakeGameFrame();
+                    snake = true;
+                } else if (!frames.isEmpty()) {
                     frames.get(frame).setVisible(true);
                     frames.remove(frames.get(frame));
-                    view.repaint();
-                    break;
                 }
+                numFrames--;
+                view.repaint();
+                break;
             }
             lives = Lives.lives;
             frame.resetLives();

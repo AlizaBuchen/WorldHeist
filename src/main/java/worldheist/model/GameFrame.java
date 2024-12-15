@@ -20,8 +20,10 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
 
+        getContentPane().setBackground(new Color(35, 37, 84));
+
         Avatar avatar = new Avatar(750, 750, 45, 50);
-        WallFactory wallFactory = new WallFactory(4, getWidth(), 30);
+        WallFactory wallFactory = new WallFactory(6, getWidth(), 30);
         List<Wall> walls = wallFactory.createWalls();
 
         component = new GameComponent(avatar, walls);
@@ -40,6 +42,8 @@ public class GameFrame extends JFrame {
         lives.setText("Lives: " + controller.getLives());
         lives.setBounds(10, 10, 100, 30);
         lives.setFont(new Font("Arial", Font.BOLD, 16));
+        lives.setBackground(new Color(35, 37, 84));
+        lives.setForeground(Color.LIGHT_GRAY);
         add(lives);
 
         final boolean[] start = {false};

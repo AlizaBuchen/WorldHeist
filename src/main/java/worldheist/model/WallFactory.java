@@ -24,7 +24,7 @@ public class WallFactory
         int y = 0;
         while (walls.size() < numWalls) {
             x = 0;
-            y += 150;
+            y += 100;
 
             boolean overlap = false;
             for (Wall w : walls) {
