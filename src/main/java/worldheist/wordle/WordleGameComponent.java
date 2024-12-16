@@ -65,7 +65,9 @@ public class WordleGameComponent extends JComponent {
                 case Correct -> fields[game.getGuessCount() - 1][col].setBackground(Color.GREEN);
                 case Present -> fields[game.getGuessCount() - 1][col].setBackground(Color.YELLOW);
                 case Incorrect -> fields[game.getGuessCount() - 1][col].setBackground(Color.GRAY);
-                default -> {}
+                default -> {
+
+                }
             }
             fields[game.getGuessCount() - 1][col].setOpaque(true);
         }
