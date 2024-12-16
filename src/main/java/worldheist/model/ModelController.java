@@ -25,7 +25,8 @@ public class ModelController {
     private int numFrames = 6;
     private boolean snake;
 
-    public ModelController(Avatar avatar, List<Wall> walls, GameComponent view, GameFrame frame) throws FileNotFoundException {
+    public ModelController(Avatar avatar, List<Wall> walls, GameComponent view, GameFrame frame)
+            throws FileNotFoundException {
         this.avatar = avatar;
         this.walls = walls;
         this.view = view;
