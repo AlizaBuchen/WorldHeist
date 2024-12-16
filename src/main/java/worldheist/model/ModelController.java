@@ -6,6 +6,7 @@ import worldheist.snake.Snake;
 import worldheist.snake.SnakeGameFrame;
 
 import javax.swing.*;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -21,10 +22,10 @@ public class ModelController {
     private boolean gameFrameCreated;
     private boolean gameOver;
     private int lives;
-    private int numFrames = 5;
+    private int numFrames = 6;
     private boolean snake;
 
-    public ModelController(Avatar avatar, List<Wall> walls, GameComponent view, GameFrame frame) {
+    public ModelController(Avatar avatar, List<Wall> walls, GameComponent view, GameFrame frame) throws FileNotFoundException {
         this.avatar = avatar;
         this.walls = walls;
         this.view = view;
@@ -36,11 +37,12 @@ public class ModelController {
         snake = false;
     }
 
-    private void createFramesList() {
+    private void createFramesList() throws FileNotFoundException {
         frames.add(new worldheist.dodgegame.GameFrame());
         frames.add(new worldheist.obstaclejump.GameFrame());
         frames.add(new worldheist.tictactoe.TicTacToe());
         frames.add(new worldheist.rockpaperscissors.RockPaperScissors());
+        frames.add(new worldheist.wordle.WordleGameFrame());
     }
 
     public void play() {

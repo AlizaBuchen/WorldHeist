@@ -17,7 +17,7 @@ public class WordleGameFrame extends JFrame {
 
 
         this.game = new WordleGame();
-        this.gameComponent = new WordleGameComponent(game);
+        this.gameComponent = new WordleGameComponent(game, this);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.WHITE);
@@ -34,7 +34,7 @@ public class WordleGameFrame extends JFrame {
 
         setContentPane(mainPanel);
         pack();
-        setLocationRelativeTo(null); // Centers frame on screen
+        setLocationRelativeTo(null);
     }
 
     private class SubmitActionListener implements ActionListener {

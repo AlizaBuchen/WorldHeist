@@ -31,7 +31,7 @@ public class GameFrame extends JFrame {
         List<Obstacle> obstacles = obstacleFactory.createObstacles();
 
         component = new GameComponent(avatar, obstacles);
-        component.setBounds(0, 0, 1500, 800);
+        component.setBounds(0, 0, getWidth(), getHeight());
         add(component);
 
         person = new JLabel();

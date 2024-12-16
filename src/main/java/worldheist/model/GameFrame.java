@@ -5,6 +5,7 @@ import worldheist.general.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,7 +15,7 @@ public class GameFrame extends JFrame {
     private final GameComponent component;
     private final ModelController controller;
 
-    public GameFrame() {
+    public GameFrame() throws FileNotFoundException {
         setSize(1500, 800);
         setTitle("World Heist");
         setDefaultCloseOperation(EXIT_ON_CLOSE);

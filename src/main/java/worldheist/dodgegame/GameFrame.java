@@ -38,7 +38,7 @@ public class GameFrame extends JFrame {
         balls = ballFactory.createBalls();
 
         component = new GameComponent(avatar, balls);
-        component.setBounds(0, 0, 1500, 800);
+        component.setBounds(0, 0, getWidth(), getHeight());
         add(component);
 
         person1 = new JLabel();

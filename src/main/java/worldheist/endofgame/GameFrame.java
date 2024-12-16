@@ -32,14 +32,14 @@ public class GameFrame extends JFrame {
 
         getContentPane().setBackground(new Color(20, 20, 20));
 
-        avatar = new Avatar(750, 700, 45, 50);
+        avatar = new Avatar((getWidth() / 2) - 22, 700, 45, 50);
         Glass glass = new Glass(getWidth() / 2 - 100, getHeight() / 2 - 100, 200, 200);
         getaway = new Wall(50, getHeight() - 100, 250, 60);
         object = new Item(glass.getCenterX() - 8, glass.getCenterY() - 10, 16, 20);
         hammer = new Hammer(new Rectangle((int) (avatar.getX() + avatar.getWidth()),
                 (int) avatar.getY(), 10, 60));
         component = new GameComponent(avatar, glass, getaway, object, hammer, this);
-        component.setBounds(0, 0, 1500, 800);
+        component.setBounds(0, 0, getWidth(), getHeight());
         add(component);
 
         person = new JLabel();

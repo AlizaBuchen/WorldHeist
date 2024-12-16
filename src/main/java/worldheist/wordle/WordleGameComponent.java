@@ -10,9 +10,11 @@ import java.awt.*;
 public class WordleGameComponent extends JComponent {
     private final JTextField[][] fields;
     private final WordleGame game;
+    private final JFrame frame;
 
-    public WordleGameComponent(WordleGame game) {
+    public WordleGameComponent(WordleGame game, JFrame frame) {
         this.game = game;
+        this.frame = frame;
         this.fields = new JTextField[6][5];
         setLayout(new GridLayout(6, 5, 10, 10));
         initializeGrid();
@@ -47,11 +49,12 @@ public class WordleGameComponent extends JComponent {
         if (isWinner) {
             JOptionPane.showMessageDialog(this,
                     "Congratulations! You guessed the word.", "Winner", JOptionPane.INFORMATION_MESSAGE);
-            System.exit(0);
+            this.frame.dispose();
         } else if (isGameOver) {
             JOptionPane.showMessageDialog(this,
-                    "Game Over. The word was: " + game.getWordleWord(), "Game Over", JOptionPane.INFORMATION_MESSAGE);
-            System.exit(0);
+                    "Game Over. The word was: " + game.getWordleWord(),
+                    "Game Over", JOptionPane.INFORMATION_MESSAGE);
+            this.frame.dispose();
         } else {
             setRowEditable(game.getGuessCount() - 1, false);
             setRowEditable(game.getGuessCount(), true);
