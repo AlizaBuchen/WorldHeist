@@ -7,8 +7,8 @@ import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
 public class Ball extends Ellipse2D.Double {
-    private static final int MIN_VELOCITY = 7;
-    private static final int MAX_VELOCITY = 12;
+    private static final int MIN_VELOCITY = 5;
+    private static final int MAX_VELOCITY = 10;
     private final int velocity;
     private int angle;
     private final Color color;

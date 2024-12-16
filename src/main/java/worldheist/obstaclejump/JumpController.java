@@ -1,5 +1,6 @@
 package worldheist.obstaclejump;
 
+import worldheist.general.Lives;
 import worldheist.general.*;
 
 import javax.swing.*;
@@ -48,6 +49,7 @@ public class JumpController {
                     timer.stop();
                     frame.gameOver();
                     JOptionPane.showMessageDialog(frame, "Game Over! You lose a life :(");
+                    Lives.lives--;
                     frame.dispose();
                     gameOver = true;
                 }

@@ -3,7 +3,6 @@ package worldheist.snake;
 import java.util.Random;
 
 public class Food {
-
     private int x;
     private int y;
     private final int unitSize;

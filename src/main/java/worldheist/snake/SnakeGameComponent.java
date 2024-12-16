@@ -1,5 +1,7 @@
 package worldheist.snake;
 
+import worldheist.general.Lives;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,22 +11,21 @@ import java.awt.event.KeyEvent;
 
 public class SnakeGameComponent extends JComponent implements ActionListener {
 
-    private static final int WIDTH = 1400;
-    private static final int HEIGHT = 775;
+    private static final int WIDTH = 1500;
+    private static final int HEIGHT = 750;
     private static final int UNIT_SIZE = 20;
     private static final int TOTAL_CELLS = (WIDTH * HEIGHT) / (UNIT_SIZE * UNIT_SIZE);
-
     private final Snake snake;
     private final Food food;
     private Direction direction = Direction.RIGHT;
     private boolean running = false;
     private Timer timer;
+    private final JFrame frame;
 
-    public SnakeGameComponent() {
+    public SnakeGameComponent(JFrame frame) {
         this.snake = new Snake(TOTAL_CELLS, TOTAL_CELLS, UNIT_SIZE, 5);
         this.food = new Food(UNIT_SIZE, WIDTH, HEIGHT);
-
-
+        this.frame = frame;
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
@@ -79,7 +80,8 @@ public class SnakeGameComponent extends JComponent implements ActionListener {
             g.setColor(Color.RED);
             g.setFont(new Font("Sans serif", Font.BOLD, 50));
             FontMetrics metrics = getFontMetrics(g.getFont());
-            g.drawString("Game Over", (WIDTH - metrics.stringWidth("Game Over")) / 2, HEIGHT / 2);
+            g.drawString("Game Over! You lose a life :(",
+                    (WIDTH - metrics.stringWidth("Game Over! You lose a life :(")) / 2, HEIGHT / 2);
 
             g.setColor(Color.BLACK);
             g.setFont(new Font("Sans serif", Font.BOLD, 25));
@@ -87,7 +89,12 @@ public class SnakeGameComponent extends JComponent implements ActionListener {
             g.drawString("Score: " + snake.getScore(),
                     (WIDTH - metrics.stringWidth("Score: " + snake.getScore())) / 2,
                     HEIGHT / 2 + g.getFont().getSize());
+            Lives.lives--;
         }
+        new Timer(2000, e -> {
+            frame.dispose();
+            ((Timer) e.getSource()).stop();
+        }).start();
     }
 
     @Override

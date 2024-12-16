@@ -1,5 +1,6 @@
 package worldheist.dodgegame;
 
+import worldheist.general.Lives;
 import worldheist.general.*;
 
 import javax.swing.*;
@@ -46,6 +47,7 @@ public class DodgeController {
                     if (avatarHits >= 3) {
                         frame.gameOver();
                         JOptionPane.showMessageDialog(frame, "Game Over! You lose a life :(");
+                        Lives.lives--;
                         frame.dispose();
                         gameOver = true;
                     } else {

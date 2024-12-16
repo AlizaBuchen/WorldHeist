@@ -32,14 +32,14 @@ public class GameFrame extends JFrame {
 
         getContentPane().setBackground(new Color(20, 20, 20));
 
-        avatar = new Avatar(750, 700, 45, 50);
+        avatar = new Avatar((getWidth() / 2) - 22, 700, 45, 50);
         Glass glass = new Glass(getWidth() / 2 - 100, getHeight() / 2 - 100, 200, 200);
         getaway = new Wall(50, getHeight() - 100, 250, 60);
         object = new Item(glass.getCenterX() - 8, glass.getCenterY() - 10, 16, 20);
         hammer = new Hammer(new Rectangle((int) (avatar.getX() + avatar.getWidth()),
                 (int) avatar.getY(), 10, 60));
-        component = new GameComponent(avatar, glass, getaway, object, hammer);
-        component.setBounds(0, 0, 1500, 800);
+        component = new GameComponent(avatar, glass, getaway, object, hammer, this);
+        component.setBounds(0, 0, getWidth(), getHeight());
         add(component);
 
         person = new JLabel();
@@ -189,5 +189,23 @@ public class GameFrame extends JFrame {
 
     public int getCountDown() {
         return countDown[0];
+    }
+
+    public void setWinner() {
+        removeListeners();
+        remove(clock);
+        Timer endTimer = new Timer(12, e -> {
+            int newX = (int) getaway.getX() + 4;
+            if (newX + getaway.getWidth() > getWidth()) {
+                newX = 0;
+            }
+            getaway.setLocation(newX, (int) getaway.getY());
+            car.setLocation((int) getaway.getX(), (int) getaway.getY());
+            avatar.setLocation((int) (getaway.getCenterX() - avatar.getWidth() / 2),
+                    (int) (getaway.getY() - avatar.getHeight() / 2));
+            person.setLocation((int) (getaway.getCenterX() - avatar.getWidth() / 2),
+                    (int) (getaway.getY() - avatar.getHeight() / 2));
+        });
+        endTimer.start();
     }
 }

@@ -1,4 +1,6 @@
-package rockpaperscissors;
+package worldheist.rockpaperscissors;
+
+import worldheist.general.Lives;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,8 +12,8 @@ public class RockPaperScissors extends JFrame implements ActionListener {
     private int userWins = 0;
     private int compWins = 0;
     private int rounds = 0;
-    private int points = 10; // User starts with thiss amount of points
-    private final int WinningPoints = 50; // Maximum points required for user to win
+    private int points = 10;
+    private final int winningPoints = 50;
     private JLabel statusLabel;
     private JLabel pointsLabel;
     private JTextField betField;
@@ -19,26 +21,29 @@ public class RockPaperScissors extends JFrame implements ActionListener {
 
     public RockPaperScissors() {
         setTitle("Rock, Paper, Scissors");
-        setSize(400, 400);
+        setSize(1500, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         random = new Random();
 
-
-        JPanel topPanel = new JPanel(); // top
         statusLabel = new JLabel("Place your bet and make a choice:", SwingConstants.CENTER);
         statusLabel.setFont(new Font("Arial", Font.BOLD, 15));
         pointsLabel = new JLabel("Points: " + points, SwingConstants.CENTER);
         pointsLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        JPanel topPanel = new JPanel();
         topPanel.setLayout(new GridLayout(2, 1));
         topPanel.add(statusLabel);
         topPanel.add(pointsLabel);
-        JPanel middlePanel = new JPanel(); // middle
+        add(topPanel, BorderLayout.NORTH);
+
+        JPanel middlePanel = new JPanel();
         JLabel betLabel = new JLabel("Bet (1-10): ");
         betField = new JTextField(5);
         middlePanel.add(betLabel);
         middlePanel.add(betField);
-        JPanel bottomPanel = new JPanel(); //bottom
+        add(middlePanel, BorderLayout.CENTER);
+
+        JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new FlowLayout());
         JButton rockButton = new JButton("Rock");
         JButton paperButton = new JButton("Paper");
@@ -49,9 +54,6 @@ public class RockPaperScissors extends JFrame implements ActionListener {
         bottomPanel.add(rockButton);
         bottomPanel.add(paperButton);
         bottomPanel.add(scissorsButton);
-
-        add(topPanel, BorderLayout.NORTH);
-        add(middlePanel, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
@@ -74,7 +76,6 @@ public class RockPaperScissors extends JFrame implements ActionListener {
             return;
         }
 
-        // Determine result
         String result;
         if (userChoice.equals(compChoice)) {
             result = "It's a tie!";
@@ -85,46 +86,30 @@ public class RockPaperScissors extends JFrame implements ActionListener {
         ) {
             result = "You win!";
             userWins++;
-            points += bet; // each time user wins, increments points
+            points += bet;
         } else {
             result = "I win!";
             compWins++;
-            points -= bet; // each time user loses, decrements points
+            points -= bet;
         }
 
         rounds++;
         statusLabel.setText(String.format("You chose %s, I chose %s. %s", userChoice, compChoice, result));
         pointsLabel.setText("Points: " + points);
 
-        // game over:
         if (points <= 0) {
             JOptionPane.showMessageDialog(this, String.format("Game Over!\nRounds: " +
                             "%d\nYour Wins: %d\nComputer Wins: %d\nFinal Points: %d",
                     rounds, userWins, compWins, points));
-            resetGame();
+            Lives.lives--;
+            this.dispose();
         }
 
-        if (points >= WinningPoints) {
+        if (points >= winningPoints) {
             JOptionPane.showMessageDialog(this, String.format("Congratulations, You Win!\nRounds:" +
                             " %d\nYour Wins: %d\nComputer Wins: %d\nFinal Points: %d",
                     rounds, userWins, compWins, points));
-            resetGame();
+            this.dispose();
         }
-    }
-
-    private void resetGame() {
-        userWins = 0;
-        compWins = 0;
-        rounds = 0;
-        points = 10; // Reset points to start amount
-        statusLabel.setText("Place your bet and make a choice!!");
-        pointsLabel.setText("Points: " + points);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            RockPaperScissors game = new RockPaperScissors();
-            game.setVisible(true);
-        });
     }
 }

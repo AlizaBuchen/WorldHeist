@@ -2,8 +2,10 @@ package worldheist.endofgame;
 
 import worldheist.general.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.util.List;
 import java.util.Iterator;
 
@@ -13,14 +15,19 @@ public class GameComponent extends JComponent {
     private final Wall getaway;
     private final Item object;
     private final Hammer hammer;
+    private final JFrame frame;
+    private ImageIcon image;
+    private boolean winner;
     private Timer fallTimer;
 
-    public GameComponent(Avatar avatar, Glass glass, Wall getaway, Item object, Hammer hammer) {
+    public GameComponent(Avatar avatar, Glass glass, Wall getaway, Item object, Hammer hammer, JFrame frame) {
         this.avatar = avatar;
         this.glass = glass;
         this.getaway = getaway;
         this.object = object;
         this.hammer = hammer;
+        this.frame = frame;
+        winner = false;
         fallTimer = new Timer(16, e -> repaint());
     }
 
@@ -67,6 +74,10 @@ public class GameComponent extends JComponent {
             g.fillOval((int) (object.getX()), (int) (object.getY()),
                     (int) object.getWidth(), (int) object.getHeight());
         }
+
+        if (winner) {
+            drawWinner(g);
+        }
     }
 
     private void drawGlass(Graphics g, Glass glass) {
@@ -110,5 +121,26 @@ public class GameComponent extends JComponent {
                 g.drawRect(shard.getX(), shard.getY(), shard.getWidth(), shard.getHeight());
             }
         }
+    }
+
+    public void setWinner() {
+        winner = true;
+    }
+
+    public void drawWinner(Graphics g) {
+        frame.getContentPane().setBackground(new Color(187, 220, 245));
+        g.setFont(new Font("Sans serif", Font.BOLD, 100));
+        FontMetrics metrics = getFontMetrics(g.getFont());
+        g.setColor(new Color(140, 200, 255));
+        g.drawString("You Win!", (frame.getWidth() - metrics.stringWidth("You Win!")) / 2,
+                frame.getHeight() / 2);
+        g.setColor(Color.RED);
+        g.fillRect((int) getaway.getX(), (int) getaway.getY(), (int) getaway.getWidth(), (int) getaway.getHeight());
+        g.setColor(Color.BLUE);
+        g.fillRect((int) avatar.getX(), (int) avatar.getY(), (int) avatar.getWidth(), (int) avatar.getHeight());
+        g.setColor(Color.GRAY);
+        g.fillOval((int) (avatar.getCenterX() - object.getWidth() / 2),
+                (int) (avatar.getCenterY() - object.getHeight() / 2),
+                (int) object.getWidth(), (int) object.getHeight());
     }
 }

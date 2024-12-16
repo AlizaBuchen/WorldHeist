@@ -1,12 +1,13 @@
-package tictactoe;
+package worldheist.tictactoe;
+
+import worldheist.general.Lives;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TicTacToe implements ActionListener {
-    private JFrame frame;
+public class TicTacToe extends JFrame implements ActionListener {
     private JPanel headerPanel;
     private JPanel gridPanel;
     private JLabel statusLabel;
@@ -14,11 +15,10 @@ public class TicTacToe implements ActionListener {
     private boolean isPlayerTurn;
 
     public TicTacToe() {
-        frame = new JFrame("Tic Tac Toe Game");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 600);
-        frame.setLayout(new BorderLayout());
-        frame.setVisible(true);
+        setTitle("Tic Tac Toe Game");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1500, 800);
+        setLayout(new BorderLayout());
 
         headerPanel = new JPanel();
         statusLabel = new JLabel("Tic Tac Toe");
@@ -29,15 +29,13 @@ public class TicTacToe implements ActionListener {
         statusLabel.setBackground(new Color(0, 102, 204));
         headerPanel.setLayout(new BorderLayout());
         headerPanel.add(statusLabel, BorderLayout.CENTER);
-        frame.add(headerPanel, BorderLayout.NORTH);
+        add(headerPanel, BorderLayout.NORTH);
 
-        // Creating panel
         gridPanel = new JPanel();
         gridPanel.setLayout(new GridLayout(3, 3));
         gridPanel.setBackground(new Color(200, 200, 200));
-        frame.add(gridPanel, BorderLayout.CENTER);
+        add(gridPanel, BorderLayout.CENTER);
 
-        // buttons
         gridButtons = new JButton[9];
         for (int i = 0; i < 9; i++) {
             gridButtons[i] = new JButton();
@@ -74,7 +72,7 @@ public class TicTacToe implements ActionListener {
         for (JButton button : gridButtons) {
             button.setText("");
             button.setEnabled(true);
-            button.setBackground(null); // Reset button background
+            button.setBackground(null);
         }
     }
 
@@ -98,9 +96,9 @@ public class TicTacToe implements ActionListener {
 
     private void checkWinner() {
         int[][] winningCombinations = {
-                {0, 1, 2}, {3, 4, 5}, {6, 7, 8}, // Rows
-                {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, // Columns
-                {0, 4, 8}, {2, 4, 6}             // Diagonals
+                {0, 1, 2}, {3, 4, 5}, {6, 7, 8},
+                {0, 3, 6}, {1, 4, 7}, {2, 5, 8},
+                {0, 4, 8}, {2, 4, 6}
         };
 
         for (int[] combo : winningCombinations) {
@@ -111,13 +109,21 @@ public class TicTacToe implements ActionListener {
             if (a.equals("X") && b.equals("X") && c.equals("X")) {
                 displayWinner(combo, "You Win!! Congrats:)");
                 return;
-            } else if (a.equals("O") && b.equals("O") && c.equals("O")) {
+            }
+        }
+
+        for (int[] combo : winningCombinations) {
+            String a = gridButtons[combo[0]].getText();
+            String b = gridButtons[combo[1]].getText();
+            String c = gridButtons[combo[2]].getText();
+
+            if (a.equals("O") && b.equals("O") && c.equals("O")) {
                 displayWinner(combo, "Computer Wins!");
+                Lives.lives--;
                 return;
             }
         }
 
-        // Check for tie
         boolean tie = true;
         for (JButton button : gridButtons) {
             if (button.getText().equals("")) {
@@ -135,17 +141,14 @@ public class TicTacToe implements ActionListener {
         for (int index : winningCombo) {
             gridButtons[index].setBackground(Color.GREEN);
         }
-        statusLabel.setText(message);
+        JOptionPane.showMessageDialog(this, message);
         disableGrid();
+        this.dispose();
     }
 
     private void disableGrid() {
         for (JButton button : gridButtons) {
             button.setEnabled(false);
         }
-    }
-
-    public static void main(String[] args) {
-        new TicTacToe();
     }
 }

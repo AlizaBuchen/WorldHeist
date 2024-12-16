@@ -23,12 +23,12 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
 
-        avatar = new Avatar(750, 750, 16, 16);
+        avatar = new Avatar(getWidth() / 2, getHeight() - 50, 16, 16);
         MazeGenerator mazeGenerator = new MazeGenerator(getWidth(), getHeight());
         List<Wall> walls = mazeGenerator.createMaze();
 
         component = new GameComponent(avatar, walls);
-        component.setBounds(0, 0, 1500, 800);
+        component.setBounds(0, 0, getWidth(), getHeight());
         add(component);
 
         person = new JLabel();
@@ -94,6 +94,11 @@ public class GameFrame extends JFrame {
                             break;
                         default:
                             break;
+                    }
+                    if (avatar.getX() < 0) {
+                        avatar.setLocation(0, (int) avatar.getY());
+                    } else if ((int) (avatar.getX()) >= (getWidth() - avatar.getWidth() * 2) + 2) {
+                        avatar.setLocation((int) ((getWidth() - avatar.getWidth() * 2) + 2), (int) avatar.getY());
                     }
                     person.setLocation((int) avatar.getX(), (int) avatar.getY());
                     component.repaint();
