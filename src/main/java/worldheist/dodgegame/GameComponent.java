@@ -1,4 +1,4 @@
-package worldheist.model;
+package worldheist.dodgegame;
 
 import worldheist.general.*;
 
@@ -8,27 +8,24 @@ import java.util.List;
 
 public class GameComponent extends JComponent {
     private final Avatar avatar;
-    private final List<Wall> walls;
 
-    public GameComponent(Avatar avatar, List<Wall> walls) {
+    private final List<Ball> balls;
+
+    public GameComponent(Avatar avatar, List<Ball> balls) {
         this.avatar = avatar;
-        this.walls = walls;
+        this.balls = balls;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (Wall wall : walls) {
-            if (!wall.isHit()) {
-                g.setColor(Color.GRAY);
-                g.fillRect(wall.x, wall.y, wall.width, wall.height);
-
-                g.setColor(Color.BLACK);
-                g.drawRect(wall.x, wall.y, wall.width, wall.height);
-            }
-        }
 
         g.setColor(Color.BLUE);
         g.fillRect((int) avatar.getX(), (int) avatar.getY(), (int) avatar.getWidth(), (int) avatar.getHeight());
+
+        for (Ball ball : balls) {
+            g.setColor(ball.getColor());
+            g.fillOval((int) ball.getX(), (int) ball.getY(), (int) ball.getWidth(), (int) ball.getHeight());
+        }
     }
 }

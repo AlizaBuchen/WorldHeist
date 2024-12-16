@@ -79,6 +79,7 @@ public class WordleGame {
     public boolean isWinner(String guessString) {
         return wordleWord.equalsIgnoreCase(guessString);
     }
+
     public boolean isGameOver() {
         return guesses >= 6;
     }
@@ -86,8 +87,6 @@ public class WordleGame {
     public int getGuessCount() {
         return guesses;
     }
-
-
 
     public String getWordleWord() {
         return wordleWord;

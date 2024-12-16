@@ -45,7 +45,8 @@ public class WordleGameFrame extends JFrame {
                 JTextField field = gameComponent.getField(game.getGuessCount(), col);
                 String text = field.getText().toUpperCase();
                 if (text.length() != 1 || !Character.isLetter(text.charAt(0))) {
-                    JOptionPane.showMessageDialog(WordleGameFrame.this, "Each box must contain a valid letter.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(WordleGameFrame.this,
+                            "Each box must contain a valid letter.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 guessBuilder.append(text);
@@ -59,7 +60,8 @@ public class WordleGameFrame extends JFrame {
 
                 gameComponent.processGuess(guess, results, isWinner, isGameOver);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(WordleGameFrame.this, ex.getMessage(), "Invalid Guess", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(WordleGameFrame.this, ex.getMessage(),
+                        "Invalid Guess", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

@@ -45,13 +45,15 @@ public class WordleGameComponent extends JComponent {
         updateGrid(guess, results);
 
         if (isWinner) {
-            JOptionPane.showMessageDialog(this, "Congratulations! You guessed the word.", "Winner", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Congratulations! You guessed the word.", "Winner", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         } else if (isGameOver) {
-            JOptionPane.showMessageDialog(this, "Game Over. The word was: " + game.getWordleWord(), "Game Over", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Game Over. The word was: " + game.getWordleWord(), "Game Over", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         } else {
-            setRowEditable(game.getGuessCount() -1, false);
+            setRowEditable(game.getGuessCount() - 1, false);
             setRowEditable(game.getGuessCount(), true);
         }
     }
@@ -63,6 +65,7 @@ public class WordleGameComponent extends JComponent {
                 case Correct -> fields[game.getGuessCount() - 1][col].setBackground(Color.GREEN);
                 case Present -> fields[game.getGuessCount() - 1][col].setBackground(Color.YELLOW);
                 case Incorrect -> fields[game.getGuessCount() - 1][col].setBackground(Color.GRAY);
+                default -> {}
             }
             fields[game.getGuessCount() - 1][col].setOpaque(true);
         }
@@ -91,7 +94,8 @@ public class WordleGameComponent extends JComponent {
         }
 
         @Override
-        public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+        public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr)
+                throws BadLocationException {
             if (string != null && string.length() == 1 && Character.isLetter(string.charAt(0))) {
                 super.insertString(fb, offset, string.toUpperCase(), attr);
                 moveToNextField();
@@ -99,7 +103,8 @@ public class WordleGameComponent extends JComponent {
         }
 
         @Override
-        public void replace(FilterBypass fb, int offset, int length, String string, AttributeSet attr) throws BadLocationException {
+        public void replace(FilterBypass fb, int offset, int length, String string, AttributeSet attr)
+                throws BadLocationException {
             if (string != null && string.length() == 1 && Character.isLetter(string.charAt(0))) {
                 super.replace(fb, offset, length, string.toUpperCase(), attr);
                 moveToNextField();
